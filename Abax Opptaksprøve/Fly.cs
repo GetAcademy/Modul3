@@ -23,7 +23,6 @@ namespace Abax_Opptaksprøve
         public override void Show()
         {
             Console.WriteLine();
-            base.SelectiveWrite(true, false);
             base.Show();
             Console.WriteLine($"Vingespenn: {Vingespenn,21}");
             Console.WriteLine($"Laste Evne: {Lasteevne,21}");
@@ -34,6 +33,11 @@ namespace Abax_Opptaksprøve
         {
             Console.WriteLine();
             Console.WriteLine($"The plane '{Kjennetegn}' is taking off and heading towards its destination");
+        }
+
+        protected override void ShowMaksFart()
+        {
+            // fjerne
         }
     }
 }

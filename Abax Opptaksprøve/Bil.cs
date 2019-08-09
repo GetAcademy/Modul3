@@ -20,10 +20,15 @@ namespace Abax_Opptaksprøve
             Console.WriteLine();
             Console.WriteLine($"Registrerings Nummer: {RegistreringsNummer}");
             base.Show();
-            base.SelectiveWrite(false,true);
             Console.WriteLine($"Farge: {Farge,26}");
             Console.WriteLine($"Type: {Type,27}");
         }
+
+        protected override void ShowKjennetegn()
+        {
+            // fjerne
+        }
+
         public void Drive()
         {
             Console.WriteLine();

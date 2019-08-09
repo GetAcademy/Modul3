@@ -17,22 +17,8 @@ namespace Abax_Opptaksprøve
         public override void Show()
         {
             Console.WriteLine();
-            base.SelectiveWrite(true, true);
             base.Show();
             Console.WriteLine($"Bruttotonasje: {Bruttotonnasje,18}");
-        }
-
-        public override void SelectiveWrite(bool kjennetegn, bool maksfart)
-        {
-            if (kjennetegn)
-            {
-                Console.WriteLine($"Kjennetegn: {Kjennetegn,21}");
-            }
-            base.Show();
-            if (maksfart)
-            {
-                Console.WriteLine($"Maks Fart: {MaksFart,22}");
-            }
         }
     }
 }

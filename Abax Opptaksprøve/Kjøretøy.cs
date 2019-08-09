@@ -16,11 +16,11 @@ namespace Abax_Opptaksprøve
         public Kjøretøy(string id, int effekt, int maksfartKm = 0, int maksfartKnop = 0)
         {
             Effekt = $"{effekt}Kw";
-            if(maksfartKm > 0)
+            if (maksfartKm > 0)
             {
                 MaksFart = $"{maksfartKm}Km/t";
             }
-            else if(maksfartKnop > 0)
+            else if (maksfartKnop > 0)
             {
                 MaksFart = $"{maksfartKnop}Knop";
             }
@@ -30,17 +30,18 @@ namespace Abax_Opptaksprøve
         public virtual void Show()
         {
             Console.WriteLine($"Effekt: {Effekt,25}");
+            if (Kjennetegn != null) ShowKjennetegn();
+            if (MaksFart != null) ShowMaksFart();
         }
-        public virtual void SelectiveWrite(bool kjennetegn,bool maksfart)
+
+        protected virtual void ShowMaksFart()
         {
-            if (kjennetegn)
-            {
-                Console.WriteLine($"Kjennetegn: {Kjennetegn,21}");
-            }
-            if (maksfart)
-            {
-                Console.WriteLine($"Maks Fart: {MaksFart,22}");
-            }
+            Console.WriteLine($"Maks Fart: {MaksFart,22}");
+        }
+
+        protected virtual void ShowKjennetegn()
+        {
+            Console.WriteLine($"Kjennetegn: {Kjennetegn,21}");
         }
     }
 }
