@@ -30,8 +30,8 @@ namespace Abax_Opptaksprøve
         public virtual void Show()
         {
             Console.WriteLine($"Effekt: {Effekt,25}");
-            if (Kjennetegn != null) ShowKjennetegn();
-            if (MaksFart != null) ShowMaksFart();
+            ShowKjennetegn();
+            ShowMaksFart();
         }
 
         protected virtual void ShowMaksFart()
