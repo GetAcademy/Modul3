@@ -16,7 +16,7 @@
           <input class="stretch" v-model="Search" placeholder="Free Search" type="text" />
         </td>
         <td colspan="2">
-          <button class="stretch" @click="GetUsers(Myself,`/search/${Search}`)" title="Free Search">Free Search</button>
+          <button class="stretch" @click="GetUsers(Myself,`/search?Search=${Search}`), LastCall = true" title="Free Search">Free Search</button>
         </td>
       </tr>
       <tr>
@@ -122,6 +122,7 @@ export default {
       Search: null,
       Myself: this,
       Page: 1,
+      LastCall: null,
     };
   },
   methods: {
@@ -130,7 +131,8 @@ export default {
       resp = await axios.post("/api/People", person);
       console.log(Response.prototype);
       this.EmptyFields();
-      this.GetUsers(this);
+      this.Page = 1;
+      this.GetUsers(this, null,`Page=${this.Page}`);
     },
     ConstructUser: function() {
       const me = this;
@@ -146,20 +148,36 @@ export default {
     DeleteUser: async function(ID) {
       await axios.delete(`/api/People/${ID}`);
       console.log(Response.prototype);
-      this.GetUsers(this);
+      this.Page = 1;
+      this.GetUsers(this, null,`Page=${this.Page}`);
     },
     UpdateUser: async function(object) {
       await axios.put(`/api/People/${object.id}`, object);
       console.log(Response.prototype);
       console.log(`updated user with this data: ${object}`);
-      this.GetUsers(this);
+      this.Page = 1;
+      this.GetUsers(this, null,`Page=${this.Page}`);
     },
-    GetUsers: async (me, name = "") => {
+    GetUsers: async (me, name = "", page = `Page=1`, empty = true) => {
       try {
-        const response = await axios.get(`/api/People${name}`);
-        console.log(response.data.value);
-        me.people = [];
-        await me.people.push(...response.data.value);
+        let response;
+        if(name != ""){
+          response = await axios.get(`/api/People${name}&${page}`);
+        }
+        else{
+          this.LastCall = false;
+          response = await axios.get(`/api/People?${page}`)
+        }
+        if(empty) me.people = [];
+        if(response.data.value != null){
+          console.log(response.data.value);
+          await me.people.push(...response.data.value);
+        }
+        else{
+          
+          console.log(response.data);
+          await me.people.push(...response.data);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -176,16 +194,26 @@ export default {
         let response = await axios.get('api/People/Count');
         let PageCount = Math.ceil(response.data / 10);
         if(this.Page < PageCount) this.Page++;
-        this.GetUsers(this,`?Page=${this.Page}`);
+        if(this.LastCall){
+          this.GetUsers(this,`/search?Search=${this.Search}` ,`Page=${this.Page}`);
+        }
+        else{
+          this.GetUsers(this, "",`Page=${this.Page}`);
+        }
       },
     PreviousPage: async function(){
       if(this.Page > 1) this.Page--;
-      this.GetUsers(this,`?Page=${this.Page}`);
+      if(LastCall){
+          this.GetUsers(this,`/search?Search=${this.Search}` ,`Page=${this.Page}`);
+        }
+        else{
+          this.GetUsers(this, "",`Page=${this.Page}`);
+        }
     }
   },
   created: async function() {
     const self = this;
-    this.GetUsers(self,`?Page=${this.Page}`);
+    this.GetUsers(self, "",`Page=${this.Page}`);
   }
 };
 </script>

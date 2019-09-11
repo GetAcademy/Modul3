@@ -41,18 +41,19 @@ namespace ASP_Test_2.Repositories
             return people;
         }
 
-        public async Task<ActionResult<IEnumerable<People>>> SearchPeople(string search)
+        public async Task<ActionResult<IEnumerable<People>>> SearchPeople(string search, int? Page)
         {
             string[] Words = search.Split(' ', ',', '-', '_');
             List<People> people = new List<People>();
             foreach (string Word in Words)
             {
+                int PageNumber = (Page ?? 1);
                 people.AddRange(await _context.People.Where(s => s.Id.ToString().Contains(Word)
                                                               || s.Name.Contains(Word)
                                                               || s.BirthYear.ToString().Contains(Word)
                                                               || s.Age.ToString().Contains(Word)
                                                               || s.Mother.Contains(Word)
-                                                              || s.Father.Contains(Word)).ToArrayAsync());
+                                                              || s.Father.Contains(Word)).Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToArrayAsync());
             }
             people = people.Distinct().OrderByDescending(p => p.Id).ToList();
             return people;

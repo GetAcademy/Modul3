@@ -24,7 +24,7 @@ namespace ASP_Test_2.Controllers
 
         // GET: api/People
         [HttpGet]
-        public async Task<ActionResult<IPagedList<People>>> GetAllPeople([FromQuery]int? Page)
+        public async Task<ActionResult<IEnumerable<People>>> GetAllPeople([FromQuery]int? Page)
         {
             int? page = Page ?? 1;
             var people = await Mine.GetAllPeople(page);
@@ -68,10 +68,10 @@ namespace ASP_Test_2.Controllers
             }
             return people;
         }
-        [HttpGet("search/{search}")]
-        public async Task<ActionResult<IEnumerable<People>>> GetBySearch(string search)
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<People>>> GetBySearch([FromQuery] string search, int Page)
         {
-            var people = await Mine.SearchPeople(search);
+            var people = await Mine.SearchPeople(search,Page);
             if (people == null)
             {
                 return NotFound();

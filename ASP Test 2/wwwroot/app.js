@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8f9adf874f048a3ab07b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7aec52ccb47f58d24740"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -14681,7 +14681,8 @@ var _this = this;
       NameSearch: null,
       Search: null,
       Myself: this,
-      Page: 1
+      Page: 1,
+      LastCall: null
     };
   },
 
@@ -14701,9 +14702,10 @@ var _this = this;
 
                 console.log(Response.prototype);
                 this.EmptyFields();
-                this.GetUsers(this);
+                this.Page = 1;
+                this.GetUsers(this, null, "Page=" + this.Page);
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -14739,9 +14741,10 @@ var _this = this;
 
               case 2:
                 console.log(Response.prototype);
-                this.GetUsers(this);
+                this.Page = 1;
+                this.GetUsers(this, null, "Page=" + this.Page);
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -14767,9 +14770,10 @@ var _this = this;
               case 2:
                 console.log(Response.prototype);
                 console.log("updated user with this data: " + object);
-                this.GetUsers(this);
+                this.Page = 1;
+                this.GetUsers(this, null, "Page=" + this.Page);
 
-              case 5:
+              case 6:
               case "end":
                 return _context3.stop();
             }
@@ -14786,41 +14790,77 @@ var _this = this;
     GetUsers: function () {
       var _ref4 = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.mark(function _callee4(me) {
         var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+        var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Page=1";
+        var empty = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
-        var _me$people, response;
+        var response, _me$people, _me$people2;
 
         return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
-                _context4.next = 3;
-                return __WEBPACK_IMPORTED_MODULE_3_axios___default.a.get("/api/People" + name);
+                response = void 0;
 
-              case 3:
+                if (!(name != "")) {
+                  _context4.next = 8;
+                  break;
+                }
+
+                _context4.next = 5;
+                return __WEBPACK_IMPORTED_MODULE_3_axios___default.a.get("/api/People" + name + "&" + page);
+
+              case 5:
                 response = _context4.sent;
-
-                console.log(response.data.value);
-                me.people = [];
-                _context4.next = 8;
-                return (_me$people = me.people).push.apply(_me$people, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default()(response.data.value));
-
-              case 8:
-                _context4.next = 13;
+                _context4.next = 12;
                 break;
 
-              case 10:
-                _context4.prev = 10;
+              case 8:
+                _this.LastCall = false;
+                _context4.next = 11;
+                return __WEBPACK_IMPORTED_MODULE_3_axios___default.a.get("/api/People?" + page);
+
+              case 11:
+                response = _context4.sent;
+
+              case 12:
+                if (empty) me.people = [];
+
+                if (!(response.data.value != null)) {
+                  _context4.next = 19;
+                  break;
+                }
+
+                console.log(response.data.value);
+                _context4.next = 17;
+                return (_me$people = me.people).push.apply(_me$people, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default()(response.data.value));
+
+              case 17:
+                _context4.next = 22;
+                break;
+
+              case 19:
+
+                console.log(response.data);
+                _context4.next = 22;
+                return (_me$people2 = me.people).push.apply(_me$people2, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default()(response.data));
+
+              case 22:
+                _context4.next = 27;
+                break;
+
+              case 24:
+                _context4.prev = 24;
                 _context4.t0 = _context4["catch"](0);
 
                 console.error(_context4.t0);
 
-              case 13:
+              case 27:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, _this, [[0, 10]]);
+        }, _callee4, _this, [[0, 24]]);
       }));
 
       return function GetUsers(_x4) {
@@ -14850,7 +14890,11 @@ var _this = this;
                 PageCount = Math.ceil(response.data / 10);
 
                 if (this.Page < PageCount) this.Page++;
-                this.GetUsers(this, "?Page=" + this.Page);
+                if (this.LastCall) {
+                  this.GetUsers(this, "/search?Search=" + this.Search, "Page=" + this.Page);
+                } else {
+                  this.GetUsers(this, "", "Page=" + this.Page);
+                }
 
               case 6:
               case "end":
@@ -14873,7 +14917,11 @@ var _this = this;
             switch (_context6.prev = _context6.next) {
               case 0:
                 if (this.Page > 1) this.Page--;
-                this.GetUsers(this, "?Page=" + this.Page);
+                if (LastCall) {
+                  this.GetUsers(this, "/search?Search=" + this.Search, "Page=" + this.Page);
+                } else {
+                  this.GetUsers(this, "", "Page=" + this.Page);
+                }
 
               case 2:
               case "end":
@@ -14899,7 +14947,7 @@ var _this = this;
             case 0:
               self = this;
 
-              this.GetUsers(self, "?Page=" + this.Page);
+              this.GetUsers(self, "", "Page=" + this.Page);
 
             case 2:
             case "end":
@@ -23020,7 +23068,8 @@ var render = function() {
                 attrs: { title: "Free Search" },
                 on: {
                   click: function($event) {
-                    return _vm.GetUsers(_vm.Myself, "/search/" + _vm.Search)
+                    _vm.GetUsers(_vm.Myself, "/search?Search=" + _vm.Search),
+                      (_vm.LastCall = true)
                   }
                 }
               },
