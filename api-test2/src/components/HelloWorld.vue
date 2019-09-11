@@ -5,10 +5,18 @@
     <table>
       <tr>
         <td colspan="6">
-          <input class="stretch" v-model="Search" placeholder="Search by Name" type="text" />
+          <input class="stretch" v-model="NameSearch" placeholder="Search by Name" type="text" />
         </td>
         <td colspan="2">
-          <button class="stretch" @click="GetUsers(Myself,`/name/${Search}`)" title="Search">Search</button>
+          <button class="stretch" @click="GetUsers(Myself,`/name/${NameSearch}`)" title="Search">Name Search</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <input class="stretch" v-model="Search" placeholder="Free Search" type="text" />
+        </td>
+        <td colspan="2">
+          <button class="stretch" @click="GetUsers(Myself,`/search/${Search}`)" title="Free Search">Free Search</button>
         </td>
       </tr>
       <tr>
@@ -99,6 +107,7 @@ export default {
 
       ID: null,
 
+      NameSearch: null,
       Search: null,
       Myself: this
     };

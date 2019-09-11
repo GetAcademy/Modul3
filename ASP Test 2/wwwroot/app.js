@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "12d6baca8fc20a1fa0da"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e7335ca47148f4c81070"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -14642,6 +14642,14 @@ var _this = this;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14659,6 +14667,7 @@ var _this = this;
 
       ID: null,
 
+      NameSearch: null,
       Search: null,
       Myself: this
     };
@@ -22919,12 +22928,54 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
+                  value: _vm.NameSearch,
+                  expression: "NameSearch"
+                }
+              ],
+              staticClass: "stretch",
+              attrs: { placeholder: "Search by Name", type: "text" },
+              domProps: { value: _vm.NameSearch },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.NameSearch = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("td", { attrs: { colspan: "2" } }, [
+            _c(
+              "button",
+              {
+                staticClass: "stretch",
+                attrs: { title: "Search" },
+                on: {
+                  click: function($event) {
+                    return _vm.GetUsers(_vm.Myself, "/name/" + _vm.NameSearch)
+                  }
+                }
+              },
+              [_vm._v("Name Search")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", { attrs: { colspan: "6" } }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
                   value: _vm.Search,
                   expression: "Search"
                 }
               ],
               staticClass: "stretch",
-              attrs: { placeholder: "Search by Name", type: "text" },
+              attrs: { placeholder: "Free Search", type: "text" },
               domProps: { value: _vm.Search },
               on: {
                 input: function($event) {
@@ -22942,14 +22993,14 @@ var render = function() {
               "button",
               {
                 staticClass: "stretch",
-                attrs: { title: "Search" },
+                attrs: { title: "Free Search" },
                 on: {
                   click: function($event) {
-                    return _vm.GetUsers(_vm.Myself, "/name/" + _vm.Search)
+                    return _vm.GetUsers(_vm.Myself, "/search/" + _vm.Search)
                   }
                 }
               },
-              [_vm._v("Search")]
+              [_vm._v("Free Search")]
             )
           ])
         ]),

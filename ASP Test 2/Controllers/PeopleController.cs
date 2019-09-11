@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP_Test_2.Model;
+using ASP_Test_2.Repositories;
 
 namespace ASP_Test_2.Controllers
 {
@@ -13,105 +14,93 @@ namespace ASP_Test_2.Controllers
     [ApiController]
     public class PeopleController : ControllerBase
     {
-        private readonly UsersContext _context;
+        public PeopleRepository Mine;
 
         public PeopleController(UsersContext context)
         {
-            _context = context;
+            Mine = new PeopleRepository(context);
         }
 
         // GET: api/People
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<People>>> GetPeople()
+        public async Task<ActionResult<IEnumerable<People>>> GetAllPeople()
         {
-            return await _context.People.ToListAsync();
+            var people = await Mine.GetPeople();
+            if (people == null)
+            {
+                return NotFound();
+            }
+            return people;
         }
 
         // GET: api/People/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<People>> GetPeople(int id)
+        public async Task<ActionResult<People>> GetByID(int id)
         {
-            var people = await _context.People.FindAsync(id);
-
+            var people = await Mine.GetPeople(id);
             if (people == null)
             {
                 return NotFound();
             }
-
             return people;
         }
+
+
         // GET: api/People/name/Henry
         [HttpGet("name/{name}")]
-        public async Task<ActionResult<IEnumerable<People>>> GetPeople(string name)
+        public async Task<ActionResult<IEnumerable<People>>> GetByName(string name)
         {
-            var people = await _context.People.Where(p => p.Name.Contains(name)).ToArrayAsync();
+            var people = await Mine.GetPeople(name);
             if (people == null)
             {
                 return NotFound();
             }
-
+            return people;
+        }
+        [HttpGet("search/{search}")]
+        public async Task<ActionResult<IEnumerable<People>>> GetBySearch(string search)
+        {
+            var people = await Mine.SearchPeople(search);
+            if (people == null)
+            {
+                return NotFound();
+            }
             return people;
         }
 
         // PUT: api/People/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<People>> PutPeople(int id, People people)
+        public async Task<ActionResult<People>> UpdateByID(int id, People people)
         {
-            if (id != people.Id)
+            var retVal = await Mine.PutPeople(id, people);
+            if (retVal == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-
-            _context.Entry(people).State = EntityState.Modified;
-            
-            try
+            else if(retVal == (ActionResult<People>)people)
             {
-                await _context.SaveChangesAsync();
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PeopleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return retVal;
         }
 
         // POST: api/People
         [HttpPost]
-        public async Task<ActionResult<People>> PostPeople(People people)
+        public async Task<ActionResult<People>> AddPeople(People people)
         {
-            _context.People.Add(people);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPeople", new { id = people.Id }, people);
+            return await Mine.PostPeople(people);
         }
 
         // DELETE: api/People/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<People>> DeletePeople(int id)
         {
-            var people = await _context.People.FindAsync(id);
+            var people = await Mine.DeletePeople(id);
             if (people == null)
             {
                 return NotFound();
             }
-
-            _context.People.Remove(people);
-            await _context.SaveChangesAsync();
-
             return people;
-        }
-
-        private bool PeopleExists(int id)
-        {
-            return _context.People.Any(e => e.Id == id);
         }
     }
 }
