@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP_Test_2.Model;
 using ASP_Test_2.Repositories;
+using PagedList;
 
 namespace ASP_Test_2.Controllers
 {
@@ -23,21 +24,22 @@ namespace ASP_Test_2.Controllers
 
         // GET: api/People
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<People>>> GetAllPeople()
+        public async Task<ActionResult<IPagedList<People>>> GetAllPeople([FromQuery]int? Page)
         {
-            var people = await Mine.GetPeople();
+            int? page = Page ?? 1;
+            var people = await Mine.GetAllPeople(page);
             if (people == null)
             {
                 return NotFound();
             }
-            return people;
+            return  Ok(people);
         }
 
         // GET: api/People/5
         [HttpGet("{id}")]
         public async Task<ActionResult<People>> GetByID(int id)
         {
-            var people = await Mine.GetPeople(id);
+            var people = await Mine.GetPersonID(id);
             if (people == null)
             {
                 return NotFound();
@@ -45,12 +47,21 @@ namespace ASP_Test_2.Controllers
             return people;
         }
 
-
+        [HttpGet("Count")]
+        public async Task<ActionResult<int>> GetPeopleCount()
+        {
+            var count = await Mine.GetPeopleCount();
+            if (count == null)
+            {
+                return NotFound();
+            }
+            return count;
+        }
         // GET: api/People/name/Henry
         [HttpGet("name/{name}")]
         public async Task<ActionResult<IEnumerable<People>>> GetByName(string name)
         {
-            var people = await Mine.GetPeople(name);
+            var people = await Mine.GetPersonName(name);
             if (people == null)
             {
                 return NotFound();

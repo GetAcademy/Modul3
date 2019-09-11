@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e7335ca47148f4c81070"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8f9adf874f048a3ab07b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -14650,6 +14650,17 @@ var _this = this;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14669,7 +14680,8 @@ var _this = this;
 
       NameSearch: null,
       Search: null,
-      Myself: this
+      Myself: this,
+      Page: 1
     };
   },
 
@@ -14788,10 +14800,10 @@ var _this = this;
               case 3:
                 response = _context4.sent;
 
-                console.log(response.data);
+                console.log(response.data.value);
                 me.people = [];
                 _context4.next = 8;
-                return (_me$people = me.people).push.apply(_me$people, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default()(response.data));
+                return (_me$people = me.people).push.apply(_me$people, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default()(response.data.value));
 
               case 8:
                 _context4.next = 13;
@@ -14822,29 +14834,83 @@ var _this = this;
       this.Age = null;
       this.Mother = null;
       this.Father = null;
-    }
+    },
+    NextPage: function () {
+      var _ref5 = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.mark(function _callee5() {
+        var response, PageCount;
+        return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_3_axios___default.a.get('api/People/Count');
+
+              case 2:
+                response = _context5.sent;
+                PageCount = Math.ceil(response.data / 10);
+
+                if (this.Page < PageCount) this.Page++;
+                this.GetUsers(this, "?Page=" + this.Page);
+
+              case 6:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function NextPage() {
+        return _ref5.apply(this, arguments);
+      }
+
+      return NextPage;
+    }(),
+    PreviousPage: function () {
+      var _ref6 = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.mark(function _callee6() {
+        return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                if (this.Page > 1) this.Page--;
+                this.GetUsers(this, "?Page=" + this.Page);
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function PreviousPage() {
+        return _ref6.apply(this, arguments);
+      }
+
+      return PreviousPage;
+    }()
   },
   created: function () {
-    var _ref5 = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.mark(function _callee5() {
+    var _ref7 = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.mark(function _callee7() {
       var self;
-      return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+      return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
               self = this;
 
-              this.GetUsers(self);
+              this.GetUsers(self, "?Page=" + this.Page);
 
             case 2:
             case "end":
-              return _context5.stop();
+              return _context7.stop();
           }
         }
-      }, _callee5, this);
+      }, _callee7, this);
     }));
 
     function created() {
-      return _ref5.apply(this, arguments);
+      return _ref7.apply(this, arguments);
     }
 
     return created;
@@ -22928,48 +22994,6 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.NameSearch,
-                  expression: "NameSearch"
-                }
-              ],
-              staticClass: "stretch",
-              attrs: { placeholder: "Search by Name", type: "text" },
-              domProps: { value: _vm.NameSearch },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.NameSearch = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("td", { attrs: { colspan: "2" } }, [
-            _c(
-              "button",
-              {
-                staticClass: "stretch",
-                attrs: { title: "Search" },
-                on: {
-                  click: function($event) {
-                    return _vm.GetUsers(_vm.Myself, "/name/" + _vm.NameSearch)
-                  }
-                }
-              },
-              [_vm._v("Name Search")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", { attrs: { colspan: "6" } }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
                   value: _vm.Search,
                   expression: "Search"
                 }
@@ -23001,6 +23025,40 @@ var render = function() {
                 }
               },
               [_vm._v("Free Search")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", { attrs: { colspan: "6" } }),
+          _vm._v(" "),
+          _c("td", [
+            _c(
+              "button",
+              {
+                attrs: { title: "Next Page" },
+                on: {
+                  click: function($event) {
+                    return _vm.NextPage()
+                  }
+                }
+              },
+              [_vm._v("Next Page")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", [
+            _c(
+              "button",
+              {
+                attrs: { title: "Previous Page" },
+                on: {
+                  click: function($event) {
+                    return _vm.PreviousPage()
+                  }
+                }
+              },
+              [_vm._v("Prev Page")]
             )
           ])
         ]),

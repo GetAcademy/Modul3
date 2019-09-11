@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP_Test_2.Model;
+using PagedList;
+using PagedList.EntityFramework;
+
 
 
 namespace ASP_Test_2.Repositories
 {
-
     public class PeopleRepository : ControllerBase
     {
         UsersContext _context;
@@ -19,18 +21,21 @@ namespace ASP_Test_2.Repositories
             _context = connection;
         }
 
-        public async Task<ActionResult<IEnumerable<People>>> GetPeople()
+        public int PageSize = 10;
+
+        public async Task<ActionResult<IEnumerable<People>>> GetAllPeople(int? Page)
         {
-            return await _context.People.ToListAsync();
+            int PageNumber = (Page ?? 1);
+            return await _context.People.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToArrayAsync();
         }
 
-        public async Task<ActionResult<People>> GetPeople(int id)
+        public async Task<ActionResult<People>> GetPersonID(int id)
         {
             var people = await _context.People.FindAsync(id);
             return people;
         }
 
-        public async Task<ActionResult<IEnumerable<People>>> GetPeople(string name)
+        public async Task<ActionResult<IEnumerable<People>>> GetPersonName(string name)
         {
             var people = await _context.People.Where(p => p.Name.Contains(name)).ToArrayAsync();
             return people;
@@ -51,6 +56,11 @@ namespace ASP_Test_2.Repositories
             }
             people = people.Distinct().OrderByDescending(p => p.Id).ToList();
             return people;
+        }
+
+        public async Task<ActionResult<int>> GetPeopleCount()
+        {
+            return await _context.People.CountAsync();
         }
 
         public async Task<ActionResult<People>> PutPeople(int id, People people)

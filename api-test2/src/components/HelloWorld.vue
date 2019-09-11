@@ -3,20 +3,31 @@
     <h1>{{ msg }}</h1>
     <h2>People</h2>
     <table>
-      <tr>
+      <!-- <tr>
         <td colspan="6">
           <input class="stretch" v-model="NameSearch" placeholder="Search by Name" type="text" />
         </td>
         <td colspan="2">
           <button class="stretch" @click="GetUsers(Myself,`/name/${NameSearch}`)" title="Search">Name Search</button>
         </td>
-      </tr>
+      </tr> -->
       <tr>
         <td colspan="6">
           <input class="stretch" v-model="Search" placeholder="Free Search" type="text" />
         </td>
         <td colspan="2">
           <button class="stretch" @click="GetUsers(Myself,`/search/${Search}`)" title="Free Search">Free Search</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          
+        </td>
+        <td>
+          <button @click="NextPage()" title="Next Page">Next Page</button>
+        </td>
+         <td>
+          <button @click="PreviousPage()" title="Previous Page">Prev Page</button>
         </td>
       </tr>
       <tr>
@@ -109,7 +120,8 @@ export default {
 
       NameSearch: null,
       Search: null,
-      Myself: this
+      Myself: this,
+      Page: 1,
     };
   },
   methods: {
@@ -145,25 +157,35 @@ export default {
     GetUsers: async (me, name = "") => {
       try {
         const response = await axios.get(`/api/People${name}`);
-        console.log(response.data);
+        console.log(response.data.value);
         me.people = [];
-        await me.people.push(...response.data);
+        await me.people.push(...response.data.value);
       } catch (error) {
         console.error(error);
       }
     },
-    
+
     EmptyFields: function(){
       this.Name = null;
       this.BirthYear = null;
       this.Age = null;
       this.Mother = null;
       this.Father = null;
+    },
+    NextPage: async function(){
+        let response = await axios.get('api/People/Count');
+        let PageCount = Math.ceil(response.data / 10);
+        if(this.Page < PageCount) this.Page++;
+        this.GetUsers(this,`?Page=${this.Page}`);
+      },
+    PreviousPage: async function(){
+      if(this.Page > 1) this.Page--;
+      this.GetUsers(this,`?Page=${this.Page}`);
     }
   },
   created: async function() {
     const self = this;
-    this.GetUsers(self);
+    this.GetUsers(self,`?Page=${this.Page}`);
   }
 };
 </script>
