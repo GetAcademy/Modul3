@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7aec52ccb47f58d24740"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ea8d504f7b413014fdd4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -14682,7 +14682,7 @@ var _this = this;
       Search: null,
       Myself: this,
       Page: 1,
-      LastCall: null
+      LastCall: false
     };
   },
 
@@ -14703,7 +14703,7 @@ var _this = this;
                 console.log(Response.prototype);
                 this.EmptyFields();
                 this.Page = 1;
-                this.GetUsers(this, null, "Page=" + this.Page);
+                this.GetUsers(this, "", "Page=" + this.Page);
 
               case 7:
               case "end":
@@ -14742,7 +14742,7 @@ var _this = this;
               case 2:
                 console.log(Response.prototype);
                 this.Page = 1;
-                this.GetUsers(this, null, "Page=" + this.Page);
+                this.GetUsers(this, "", "Page=" + this.Page);
 
               case 5:
               case "end":
@@ -14771,7 +14771,7 @@ var _this = this;
                 console.log(Response.prototype);
                 console.log("updated user with this data: " + object);
                 this.Page = 1;
-                this.GetUsers(this, null, "Page=" + this.Page);
+                this.GetUsers(this, "", "Page=" + this.Page);
 
               case 6:
               case "end":
@@ -14917,7 +14917,7 @@ var _this = this;
             switch (_context6.prev = _context6.next) {
               case 0:
                 if (this.Page > 1) this.Page--;
-                if (LastCall) {
+                if (this.LastCall) {
                   this.GetUsers(this, "/search?Search=" + this.Search, "Page=" + this.Page);
                 } else {
                   this.GetUsers(this, "", "Page=" + this.Page);

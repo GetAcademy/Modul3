@@ -122,7 +122,7 @@ export default {
       Search: null,
       Myself: this,
       Page: 1,
-      LastCall: null,
+      LastCall: false,
     };
   },
   methods: {
@@ -132,7 +132,7 @@ export default {
       console.log(Response.prototype);
       this.EmptyFields();
       this.Page = 1;
-      this.GetUsers(this, null,`Page=${this.Page}`);
+      this.GetUsers(this, "",`Page=${this.Page}`);
     },
     ConstructUser: function() {
       const me = this;
@@ -149,14 +149,14 @@ export default {
       await axios.delete(`/api/People/${ID}`);
       console.log(Response.prototype);
       this.Page = 1;
-      this.GetUsers(this, null,`Page=${this.Page}`);
+      this.GetUsers(this, "",`Page=${this.Page}`);
     },
     UpdateUser: async function(object) {
       await axios.put(`/api/People/${object.id}`, object);
       console.log(Response.prototype);
       console.log(`updated user with this data: ${object}`);
       this.Page = 1;
-      this.GetUsers(this, null,`Page=${this.Page}`);
+      this.GetUsers(this, "",`Page=${this.Page}`);
     },
     GetUsers: async (me, name = "", page = `Page=1`, empty = true) => {
       try {
@@ -203,7 +203,7 @@ export default {
       },
     PreviousPage: async function(){
       if(this.Page > 1) this.Page--;
-      if(LastCall){
+      if(this.LastCall){
           this.GetUsers(this,`/search?Search=${this.Search}` ,`Page=${this.Page}`);
         }
         else{
