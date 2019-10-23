@@ -8,40 +8,7 @@ namespace OgreVent
 {
     class Program
     {
-        static void Main()
-        {
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■■■■       ■■■■■■     ■■          ■■     ■■■■■■     ■■■■■■■■    ■■■■■■■■     ####");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■■■■       ■■          ■■        ■■      ■■         ■■■■■■■■    ■■■■■■■■     ####");
-            Console.WriteLine("#####     ■■  ■■     ■■           ■  ■       ■■           ■■      ■■       ■■         ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■  ■■     ■■  ■■■■     ■  ■       ■■■■■■        ■■    ■■        ■■■■■■     ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■  ■■     ■■    ■■     ■■■■       ■■             ■■  ■■         ■■         ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■  ■■      ■■              ■■■■          ■■         ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■   ■■     ■■■■■■           ■■           ■■■■■■     ■■    ■■       ■■        ####");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("You were the squire of the late sir Yellegor Yellowflag, a monster slayer of great renown!");
-            Console.WriteLine("Last night your master was killed in combat against a fierce ogre and you find yourself at the marketplace spending your last coppers on half a bread and some apples.");
-            Console.WriteLine("With your tummy temporarily satisfied with nourishment and with no money or valuables to your name, and far from your home, you catch a glimpse of a poster in the corner of your eye");
-            Console.WriteLine("You focus your attention on the poster, it is a wanted poster for the great ogre that killed your master, the bounty for the beast has tripled and now offers a gold price from the lord of 300 Gold Pieces");
-            Console.WriteLine("And so your Quest to Slay The Ogre Begins!");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("To check your inventory use 'inventory' to check how much money you have use 'money' to drop an item use 'drop item' otherwise actions are simple they\ncome in the form of 2 to 3 phrase long commands for example 'look left', have fun");
-            Random random = new Random();
-            Item[] GameItems = new Item[]
+        public static Item[] GameItems = new Item[]
             {
                 new Item("horseshoes",70,2,1),
                 new Item("nails",30,1,1),
@@ -78,18 +45,94 @@ namespace OgreVent
                 new Item("knights gear",0,20,0,15,7),
                 new Item("backpack",50,2,1),
             };
-            string Location = "Markedplace";
-            List<Item> Inventory = new List<Item>();
-            int Health = 3;
-            int CurrentWeight = 0;
-            int CurrentSpace = 0;
-            float Money = 0;
-            string Input()
+        public static string Location = "Markedplace";
+        public static List<Item> Inventory = new List<Item>();
+        public static int Health = 3;
+        public static int CurrentWeight = 0;
+        public static int CurrentSpace = 0;
+        public static float Money = 0;
+        public static int time = 20;
+
+        public static int Time(int TimePassed = 0)
+        {
+            time -= TimePassed;
+            if (time < 1 && EatAndDrink())
             {
-                Console.WriteLine();
-                Console.Write("Action: ");
-                return Console.ReadLine();
+                time = 20;
             }
+            else
+            {
+                time = 5;
+            }
+            return time;
+        }
+
+        public static bool EatAndDrink()
+        {
+            foreach (Item item in Inventory)
+            {
+                if (item.MyName == "ration" || item.MyName == "vegetables" || item.MyName == "fruit" || item.MyName == "meat" || item.MyName == "waterskin")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"You are hungry or thirsty, maybe even both. You stop and take a break and you enjoy your {item.MyName} before you continue your adventure.");
+                    Inventory.Remove(item);
+                    return true;
+                }
+                else if(item.MyName == "bottle of endless water")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"You are thirsty, you drink your fill from your {item.MyName} before you tuck it away. You are unsure wether you drank from the bottle or the bottle drank from you, it is the strangest most indescribable drinking experience you have had");
+                    return true;
+                }
+                else if(Inventory.Last() == item)
+                {
+                    Health--;
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public static string Input()
+        {
+            Console.WriteLine();
+            Console.Write("Action: ");
+            return Console.ReadLine();
+        }
+        static void Main()
+        {
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■■■■       ■■■■■■     ■■          ■■     ■■■■■■     ■■■■■■■■    ■■■■■■■■     ####");
+            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■■■■       ■■          ■■        ■■      ■■         ■■■■■■■■    ■■■■■■■■     ####");
+            Console.WriteLine("#####     ■■  ■■     ■■           ■  ■       ■■           ■■      ■■       ■■         ■■    ■■       ■■        ####");
+            Console.WriteLine("#####     ■■  ■■     ■■  ■■■■     ■  ■       ■■■■■■        ■■    ■■        ■■■■■■     ■■    ■■       ■■        ####");
+            Console.WriteLine("#####     ■■  ■■     ■■    ■■     ■■■■       ■■             ■■  ■■         ■■         ■■    ■■       ■■        ####");
+            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■  ■■      ■■              ■■■■          ■■         ■■    ■■       ■■        ####");
+            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■   ■■     ■■■■■■           ■■           ■■■■■■     ■■    ■■       ■■        ####");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine("###################################################################################################################");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("You were the squire of the late sir Yellegor Yellowflag, a monster slayer of great renown!");
+            Console.WriteLine("Last night your master was killed in combat against a fierce ogre and you find yourself at the marketplace spending your last coppers on half a bread and some apples.");
+            Console.WriteLine("With your tummy temporarily satisfied with nourishment and with no money or valuables to your name, and far from your home, you catch a glimpse of a poster in the corner of your eye");
+            Console.WriteLine("You focus your attention on the poster, it is a wanted poster for the great ogre that killed your master, the bounty for the beast has tripled and now offers a gold price from the lord of 300 Gold Pieces");
+            Console.WriteLine("And so your Quest to Slay The Ogre Begins!");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("To check your inventory use 'inventory' to check how much money you have use 'money' to drop an item use 'drop item' otherwise actions are simple they\ncome in the form of 2 to 3 phrase long commands for example 'look left', have fun");
+            Random random = new Random();
+            
 
             string PrintValue(int Value)
             {
@@ -306,7 +349,7 @@ namespace OgreVent
                                 {
                                     if (Inventory[i] == GameItems[28])
                                     {
-                                        Console.WriteLine("You are currently facing te Rusty Shovel, a local tavern renowned for their cheap grog");
+                                        Console.WriteLine("You are currently facing the Rusty Shovel, a local tavern renowned for their cheap grog");
                                     }
                                     else if (i == Inventory.ToArray().Length - 1)
                                     {
@@ -626,6 +669,7 @@ namespace OgreVent
                             Console.WriteLine("Talk to Junk Merchant");
                             Console.WriteLine("Talk to Armor Merchant");
                             Console.WriteLine("Steal");
+                            Console.WriteLine("Buy");
                             Console.WriteLine("Go Into Church");
                             Console.WriteLine("Take Wanted Poster");
                             Console.WriteLine("Sell");
@@ -1040,6 +1084,24 @@ namespace OgreVent
                             continue;
                         case "ENTER TOWN HALL":
                             Console.WriteLine();
+                            foreach(Item item in Inventory)
+                            {
+                                if(item.MyName == "ring of invicibility")
+                                {
+                                    Console.WriteLine($"You put on your {item.MyName} and sneak past the guards and enter the town hall");
+                                    Console.WriteLine("Once on the inside you see people doing paperwork at their desks, while others walk around with piles of paper in their hands and the occasional people talking in the hallways mostly about taxation and other political topics. straight ahead is a set of fine mahogony double doors that has been polished to really bring out its deep red color, the door handles are made out what looks like silver or some similar material and at the center of the handle it is crested with a green gemstone.");
+                                    Console.WriteLine("Do you 'Open the Door'? or do you 'Leave'?");
+                                    string TempString = Input();
+                                    switch (TempString)
+                                    {
+                                        case "OPEN THE DOOR":
+                                            Console.WriteLine("just before you open the doors you can hear voices from the other side of the intimidatingly valuable doors when you open them you are faced with an empty room and a deep swallowing pit, dirty dark and empty an old wooden staircase made out of timber lodged into the side of the pit creating a circling pathway down into the deep darkness");
+                                            break;
+                                        case "LEAVE":
+                                            break;
+                                    }
+                                }
+                            }
                             Console.WriteLine("You bravely attempt to enter the town hall but find yourself stopped by the guards and turned away.");
                             continue;
                         case "LISTEN TO MAN":
