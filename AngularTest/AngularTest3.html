@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="app3">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Angular JS Test 3</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="GroceryList" ng-controller="ListControl">
+            <h3 class="ListTitle">{{Groceries.length}} Groceries to get</h3>
+            <li ng-repeat="Grocery in Groceries" ng-if="Grocery.Item != 'Apples'">
+                {{$index}} {{Grocery.Item}}
+            </li>
+
+            <label>change 1st item: </label>
+            <input type="text" ng-model="Groceries[0].Item"/>
+
+            <h3>Grocery List</h3>
+            <div ng-include="'GroceryList.html'"></div>
+            <label>
+                <input type="checkbox" ng-model="ShowList"/>
+                Show Unordered List
+            </label>
+            <ng-include src="GetList()"></ng-include>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="app1" ng-init="Person = {FirstName: 'Patrick', LastName: 'Johnsen'}; Capitals = [{City: 'Larvik', State: 'Vestfold'}, {City: 'Sandefjord', State: 'Vestfold'}, {City: 'Tønsberg', State: 'Vestfold'}]">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Angular JS Test
+        </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div ng-controller="Control1">
+            <span>Values:</span>
+            <input type="number" ng-model="first"/>
+            <input type="number" ng-model="second"/>
+
+            <button ng-click="updateValue()">Sum</button>
+            <br><br>
+            {{calculation}}
+            <br><br>
+            <span>first number is {{first}}</span>
+            <br><br>
+            <span>{{"Name: " + Person.FirstName + " " + Person.LastName}}</span>
+            <br><br>
+            <ul>
+                <li ng-repeat="Capital in Capitals">
+                    City: {{Capital.City}} <br> State: {{Capital.State}}
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

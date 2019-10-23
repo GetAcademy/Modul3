@@ -19,6 +19,7 @@
     <PackageReference Include="PagedList" Version="1.17.0" />
     <PackageReference Include="PagedList.EntityFramework" Version="1.0.1" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
   </ItemGroup>
 
 </Project>

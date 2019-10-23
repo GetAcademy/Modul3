@@ -5,11 +5,25 @@ import HelloWorld from '@/components/HelloWorld'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  linkClass: "nav-link",
+  linkActiveClass: "active",
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
-    }
+    },
+    {
+      path: '/contacts',
+      name: 'list',
+      component: ContactList    
+    },
+    {
+      path: '/contacts/:id',
+      name: 'detail',
+      component: ContactDetail
+    },
   ]
 })

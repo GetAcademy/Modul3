@@ -78,6 +78,11 @@ namespace ASP_Test_2.Controllers
             }
             return people;
         }
+        //[HttpGet("TokenCheck")]
+        //public async Task<ActionResult<IEnumerable<People>>> GetApproval([FromQuery] string Token)
+        //{
+
+        //}
 
         // PUT: api/People/5
         [HttpPut("{id}")]

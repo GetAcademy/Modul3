@@ -102,8 +102,11 @@
 </template>
 
 <script>
-import axios from "axios";
-
+import {
+  AuthTokens,
+  TokenRefreshRequest,
+  useAuthTokenInterceptor
+} from "axios-jwt";
 export default {
   name: "HelloWorld",
   data() {
@@ -209,6 +212,9 @@ export default {
         else{
           this.GetUsers(this, "",`Page=${this.Page}`);
         }
+    },
+    TokenOK: async function(alg = "HS256", typ = "JWT", name = "Patrick Johnsen"){
+      let response = await axios.GetOk(`api/People/TokenCheck?Header=${{alg : alg, typ : typ}}&Payload=${{name : name}}&Signature=${}`);
     }
   },
   created: async function() {

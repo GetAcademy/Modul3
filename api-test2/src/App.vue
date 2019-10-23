@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+  <nav>
+    <router-link to="/contacts" exact>Contact List</router-link>
+  </nav>
     <img src="./assets/bushmaster.png">
     <router-view/>
   </div>

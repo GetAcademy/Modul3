@@ -2,7 +2,10 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
+const path = require('path');
+const  jwt  =  require('jsonwebtoken');
+const  bcrypt  =  require('bcryptjs'); 
+const SECRET_KEY = "oklongen";
 
 module.exports = {
   dev: {
