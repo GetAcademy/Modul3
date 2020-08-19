@@ -24,7 +24,7 @@ namespace OgreVent
             {
                 time = 20;
             }
-            else
+            else if(time < 1)
             {
                 time = 5;
             }
@@ -33,23 +33,28 @@ namespace OgreVent
 
         public static bool EatAndDrink()
         {
+            if(Inventory.Count == 0)
+            {
+                Poster.Post("Your tummy rumbles, and you realise you have no food, you will starve like the peasant you are, for now all you can do is swallow the pain and soldier on");
+                Health--;
+                return false;
+            }
             foreach (Item item in Inventory)
             {
                 if (item.MyName == "ration" || item.MyName == "vegetables" || item.MyName == "fruit" || item.MyName == "meat" || item.MyName == "waterskin")
                 {
-                    Console.WriteLine();
-                    Console.WriteLine($"You are hungry or thirsty, maybe even both. You stop and take a break and you enjoy your {item.MyName} before you continue your adventure.");
+                    Poster.Post($"You are hungry or thirsty, maybe even both. You stop and take a break and you enjoy your {item.MyName} before you continue your adventure.");
                     Inventory.Remove(item);
                     return true;
                 }
                 else if(item.MyName == "bottle of endless water")
                 {
-                    Console.WriteLine();
-                    Console.WriteLine($"You are thirsty, you drink your fill from your {item.MyName} before you tuck it away. You are unsure wether you drank from the bottle or the bottle drank from you, it is the strangest most indescribable drinking experience you have had");
+                    Poster.Post($"You are thirsty, you drink your fill from your {item.MyName} before you tuck it away. You are unsure wether you drank from the bottle or the bottle drank from you, it is the strangest most indescribable drinking experience you have had");
                     return true;
                 }
                 else if(Inventory.Last() == item)
                 {
+                    Poster.Post("Your tummy rumbles, and you realise you have no food, you will starve like the peasant you are, for now all you can do is swallow the pain and soldier on");
                     Health--;
                     return false;
                 }
@@ -59,7 +64,7 @@ namespace OgreVent
 
         public static string Input()
         {
-            Console.WriteLine();
+            Poster.Post();
             Console.Write("Action: ");
             return Console.ReadLine();
         }
@@ -96,16 +101,14 @@ namespace OgreVent
                 }
                 else
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("you do not have the space for this, did you think you were gonna keister it?");
+                    Poster.Post("you do not have the space for this, did you think you were gonna keister it?");
                     return false;
                 }
 
             }
             else
             {
-                Console.WriteLine();
-                Console.WriteLine("Your feeble peasant body cannot handle the encumbering weight of this item and the weight of your inventory combined");
+                Poster.Post("Your feeble peasant body cannot handle the encumbering weight of this item and the weight of your inventory combined");
                 return false;
             }
         }
@@ -179,36 +182,14 @@ namespace OgreVent
 
         static void Main()
         {
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■■■■       ■■■■■■     ■■          ■■     ■■■■■■     ■■■■■■■■    ■■■■■■■■     ####");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■■■■       ■■          ■■        ■■      ■■         ■■■■■■■■    ■■■■■■■■     ####");
-            Console.WriteLine("#####     ■■  ■■     ■■           ■  ■       ■■           ■■      ■■       ■■         ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■  ■■     ■■  ■■■■     ■  ■       ■■■■■■        ■■    ■■        ■■■■■■     ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■  ■■     ■■    ■■     ■■■■       ■■             ■■  ■■         ■■         ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■  ■■      ■■              ■■■■          ■■         ■■    ■■       ■■        ####");
-            Console.WriteLine("#####     ■■■■■■     ■■■■■■■■     ■   ■■     ■■■■■■           ■■           ■■■■■■     ■■    ■■       ■■        ####");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine("###################################################################################################################");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("You were the squire of the late sir Yellegor Yellowflag, a monster slayer of great renown!");
-            Console.WriteLine("Last night your master was killed in combat against a fierce ogre and you find yourself at the marketplace spending your last coppers on half a bread and some apples.");
-            Console.WriteLine("With your tummy temporarily satisfied with nourishment and with no money or valuables to your name, and far from your home, you catch a glimpse of a poster in the corner of your eye");
-            Console.WriteLine("You focus your attention on the poster, it is a wanted poster for the great ogre that killed your master, the bounty for the beast has tripled and now offers a gold price from the lord of 300 Gold Pieces");
-            Console.WriteLine("And so your Quest to Slay The Ogre Begins!");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("To check your inventory use 'inventory' to check how much money you have use 'money' to drop an item use 'drop item' otherwise actions are simple they\ncome in the form of 2 to 3 phrase long commands for example 'look left', have fun");
+            Poster.PrintTitle();
+            Poster.Post();
+            Poster.Post();
+            Poster.Post();
+            Poster.Post();
+            Poster.PrintIntro();
+            Poster.Post();
+            Poster.Post("To check your inventory use 'inventory' to check how much money you have use 'money' to drop an item use 'drop item' otherwise actions are simple they\ncome in the form of 2 to 3 phrase long commands for example 'look left', have fun");
             
             Random random = new Random();
             string MyAction;
@@ -225,28 +206,25 @@ namespace OgreVent
 
                 if (MyAction.ToUpper() == "INVENTORY")
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("Inventory:");
+                    Poster.Post("Inventory:");
                     foreach (Item Item in Inventory.ToArray())
                     {
-                        Console.WriteLine(Item.MyName);
+                        Poster.Post(Item.MyName, 0, false);
                     }
-                    Console.WriteLine();
-                    Console.WriteLine($"you are currently carrying {CurrentWeight} Kg, and it takes up {CurrentSpace} amount of space in your inventory out of {CarrySpace()}. You can also carry a total weight of {CarryingCapacity()} Kg.");
+                    Poster.Post($"you are currently carrying {CurrentWeight} Kg, and it takes up {CurrentSpace} amount of space in your inventory out of {CarrySpace()}. You can also carry a total weight of {CarryingCapacity()} Kg.");
                     continue;
                 }
 
                 if (MyAction.ToUpper() == "DROP ITEM")
                 {
-                    Console.WriteLine("what item would you like to drop?");
+                    Poster.Post("what item would you like to drop?");
                     Console.Write("Item: ");
                     string DropItem = Console.ReadLine();
                     for (int i = 0; i < Inventory.ToArray().Length; i++)
                     {
                         if (Inventory[i].MyName == DropItem.ToLower())
                         {
-                            Console.WriteLine();
-                            Console.WriteLine($"you dropped {Inventory[i].MyName}");
+                            Poster.Post($"you dropped {Inventory[i].MyName}");
                             CurrentWeight -= Inventory[i].MyWeight;
                             CurrentSpace -= Inventory[i].MySpace;
                             Inventory.Remove(Inventory[i]);
@@ -254,8 +232,7 @@ namespace OgreVent
                         }
                         if (i == Inventory.ToArray().Length - 1 && Inventory[i].MyName != DropItem)
                         {
-                            Console.WriteLine();
-                            Console.WriteLine("sorry no item by that name");
+                            Poster.Post("sorry no item by that name");
                             break;
                         }
                     }
@@ -265,40 +242,39 @@ namespace OgreVent
                 if (MyAction.ToUpper() == "MONEY")
                 {
                     string Bucks = Money.ToString();
-                    Console.WriteLine();
-                    Console.WriteLine("Belt Pouch:");
+                    Poster.Post("Belt Pouch:");
                     if (Bucks.Length == 1)
                     {
-                        Console.WriteLine($"{Money} Copper");
+                        Poster.Post($"{Money} Copper");
                     }
                     if (Bucks.Length == 2)
                     {
-                        Console.WriteLine($"{Bucks[0]} Silver");
-                        Console.WriteLine($"{Bucks[1]} Copper");
+                        Poster.Post($"{Bucks[0]} Silver");
+                        Poster.Post($"{Bucks[1]} Copper", 0, false);
                     }
                     if (Bucks.Length == 3)
                     {
-                        Console.WriteLine($"{Bucks[0]} Gold");
-                        Console.WriteLine($"{Bucks[1]} Silver");
-                        Console.WriteLine($"{Bucks[2]} Copper");
+                        Poster.Post($"{Bucks[0]} Gold");
+                        Poster.Post($"{Bucks[1]} Silver", 0, false);
+                        Poster.Post($"{Bucks[2]} Copper", 0, false);
                     }
                     if (Bucks.Length == 4)
                     {
-                        Console.WriteLine($"{Bucks[0]}{Bucks[1]} Gold");
-                        Console.WriteLine($"{Bucks[2]} Silver");
-                        Console.WriteLine($"{Bucks[3]} Copper");
+                        Poster.Post($"{Bucks[0]}{Bucks[1]} Gold");
+                        Poster.Post($"{Bucks[2]} Silver", 0, false);
+                        Poster.Post($"{Bucks[3]} Copper", 0, false);
                     }
                     if (Bucks.Length == 5)
                     {
-                        Console.WriteLine($"{Bucks[0]}{Bucks[1]}{Bucks[2]} Gold");
-                        Console.WriteLine($"{Bucks[3]} Silver");
-                        Console.WriteLine($"{Bucks[4]} Copper");
+                        Poster.Post($"{Bucks[0]}{Bucks[1]}{Bucks[2]} Gold");
+                        Poster.Post($"{Bucks[3]} Silver", 0, false);
+                        Poster.Post($"{Bucks[4]} Copper", 0, false);
                     }
                     if (Bucks.Length == 6)
                     {
-                        Console.WriteLine($"{Bucks[0]}{Bucks[1]}{Bucks[2]}{Bucks[3]} Gold");
-                        Console.WriteLine($"{Bucks[4]} Silver");
-                        Console.WriteLine($"{Bucks[5]} Copper");
+                        Poster.Post($"{Bucks[0]}{Bucks[1]}{Bucks[2]}{Bucks[3]} Gold");
+                        Poster.Post($"{Bucks[4]} Silver", 0, false);
+                        Poster.Post($"{Bucks[5]} Copper", 0, false);
                     }
                     continue;
                 }
@@ -306,8 +282,7 @@ namespace OgreVent
                 if (MyAction.ToUpper() == "ADD MONEY")
                 {
                     Money += 1000;
-                    Console.WriteLine();
-                    Console.WriteLine("Added 10 Gold");
+                    Poster.Post("Added 10 Gold");
                     continue;
                 }
 
@@ -319,6 +294,11 @@ namespace OgreVent
                 else if (Location == "Church")
                 {
                     Church.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Tavern")
+                {
+                    Tavern.Actions(MyAction.ToUpper());
                     continue;
                 }
                 else if (Location == "Town Hall")
@@ -347,9 +327,8 @@ namespace OgreVent
                     continue;
                 }
             }
-            Console.WriteLine();
-            Console.WriteLine("You are Dead, you will not be remembered, you will not pass into legend. You shall fade into the nothingness of wich you came.");
-            Console.WriteLine();
+            Poster.Post("You are Dead, you will not be remembered, you will not pass into legend. You shall fade into the nothingness of wich you came.");
+            Poster.Post();
             Thread.Sleep(20000);
         }
     }
