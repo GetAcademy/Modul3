@@ -149,10 +149,11 @@ namespace OgreVent
                                 Poster.Post("You already have this");
                                 break;
                             }
-                            else if (i == Program.Inventory.ToArray().Length)
+                            else if (i == Program.Inventory.ToArray().Length - 1)
                             {
                                 Poster.Post("You take the unlit lantern off the wall, lighting it is no problem there are small twigs meant for lighting candles left inside the lantern next to the candle and lit candles around the church.");
                                 Program.Inventory.Add(GameItem.GameItems[31]);
+                                break;
                             }
                         }
                         if (Program.Inventory.ToArray().Length == 0)

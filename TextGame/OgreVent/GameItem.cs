@@ -45,6 +45,30 @@ namespace OgreVent
                 new Item("knights gear",0,20,0,15,7),
                 new Item("backpack",50,2,1),
             };
+        public static bool RemoveItemFromInventory(string Name)
+        {
+            if (Program.CheckInventory(Name))
+            {
+                var item = GetItem(Name);
+                Program.Inventory.Remove(item);
+                Program.CurrentWeight -= item.MyWeight;
+                Program.CurrentSpace -= item.MySpace;
+                return true;
+            }
+            return false;
+        }
+        public static bool AddItemToInventory(string Name, bool CheckPrice = false)
+        {
+            var item = GetItem(Name);
+            if (CheckPrice && Program.Money < item.MyValue) return false;
+            if (Program.CheckCarryCapacity(item.MyWeight, item.MySpace))
+            {
+                Program.Inventory.Add(item);
+                if (CheckPrice) Program.Money -= item.MyValue;
+                return true;
+            }
+            return false;
+        }
         public static Item GetItem(string Name)
         {
             return GameItems.Select(item => item).Where(item => item.MyName == Name).First();

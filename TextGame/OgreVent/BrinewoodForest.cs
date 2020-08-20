@@ -85,6 +85,7 @@ namespace OgreVent
                         Poster.Post("Go To Chestlock Guild Hall", 0, false);
                         Poster.Post("Go To Hunters Lodge", 0, false);
                         Poster.Post("Go To Scholars Market", 0, false);
+                        Poster.Post("Kill Ogre", 0, false);
                         break;
                     default:
                         Poster.Post("Sorry you cant do that right now, or possibly even ever!");

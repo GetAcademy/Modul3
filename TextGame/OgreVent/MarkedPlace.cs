@@ -28,24 +28,8 @@ namespace OgreVent
                         Poster.Post("To your right you can see the chapel where youre late master Yellegor Yellowflag was taken for burial preperations as he was a lesser nobleman, not just some mere peasant like yourself. Outside the chapel the flaggelant militia of the holy order of the Phoenix stands guard in rough tattered clothing seemingly non uniform with the exception of the holy symbol representing their god and their order hanging around their necks, the symbols are made of wood. they carry spears and several of them is munching on a loaf of bread in the current moment. the chapels reinforced front entrance is open and the puplic is seemingly free to enter and leave at their own behest.");
                         break;
                     case "LOOK FORWARD":
-                        if (Program.Inventory.ToArray().Length > 0)
-                        {
-                            for (int i = 0; i < Program.Inventory.ToArray().Length; i++)
-                            {
-                                if (Program.Inventory[i] == GameItem.GameItems[28])
-                                {
-                                    Poster.Post("You are currently facing the Rusty Shovel, a local tavern renowned for their cheap grog");
-                                }
-                                else if (i == Program.Inventory.ToArray().Length - 1)
-                                {
-                                    Poster.Post("You are currently facing the wanted poster of the ogre, the poster is hanging on the wall to the left hand side of the entrance to the Rusty Shovel, a local tavern renowned for their cheap grog");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Poster.Post("You are currently facing the wanted poster of the ogre, the poster is hanging on the wall to the left hand side of the entrance to the Rusty Shovel, a local tavern renowned for their cheap grog");
-                        }
+                        if(Program.CheckInventory("wanted poster")) Poster.Post("You are currently facing the Rusty Shovel, a local tavern renowned for their cheap grog");
+                        else Poster.Post("You are currently facing the wanted poster of the ogre, the poster is hanging on the wall to the left hand side of the entrance to the Rusty Shovel, a local tavern renowned for their cheap grog");
                         break;
                     case "LOOK BEHIND":
                         Poster.Post("You see the main road in and out of this markedplace, it is rather spacious compared to the standards of the inner city you would think it is about 7 meters wide. Down the road you can see the silhouette of a guard tower basking in the morning sun.");
@@ -178,90 +162,55 @@ namespace OgreVent
                         Poster.Post("what do you attempt to steal?", 1);
                         Poster.Post();
                         string stealA = string.Empty;
-                        stealA = Input().ToUpper();
-                        foreach (Item Item in GameItem.GameItems)
+                        stealA = Input().ToLower();
+                        if(random.Next(1, 3) == 2 || Program.CheckInventory("ring of invisibility"))
                         {
-                            if (Item.MyName.ToUpper() == stealA)
-                            {
-                                if (random.Next(1, 3) == 2 || Program.CheckInventory("ring of invisibility"))
-                                {
-                                    if (!Program.CheckCarryCapacity(Item.MyWeight, Item.MySpace))
-                                    {
-                                        break;
-                                    }
-                                    Program.Inventory.Add(Item);
-                                    Poster.Post($"You have successfully stolen {stealA}");
-                                }
-                                else
-                                {
-                                    Poster.Post("You have been caught stealing and is beaten by the merchants and a kid");
-                                    Program.Health--;
-                                }
-                            }
+                            if (GameItem.AddItemToInventory(stealA)) Poster.Post($"You have successfully stolen {stealA}");
+                            else Poster.Post("You successfully steal the item but you have no way of carrying it, so you ditch it in some nearby bushes");
+                        }
+                        else
+                        {
+                            Poster.Post("You have been caught stealing and is beaten by the merchants and a kid");
+                            Program.Health--;
                         }
                         break;
                     case "BUY":
                         Poster.Post("What do you Purchase?");
                         string purchitem = string.Empty;
                         purchitem = Input();
-                        foreach (Item Item in GameItem.GameItems)
+                        if (GameItem.AddItemToInventory(purchitem, true))
                         {
-                            if (purchitem.ToUpper() == Item.MyName.ToUpper() && Program.Money >= Item.MyValue)
-                            {
-                                if (Program.CheckCarryCapacity(Item.MyWeight, Item.MySpace))
-                                {
-                                    Program.Money -= Item.MyValue;
-                                    Program.Inventory.Add(Item);
-                                    Poster.Post($"You Purchased {Item.MyName}");
-                                }
-                                break;
-                            }
-                            else if (Item == GameItem.GameItems[GameItem.GameItems.Length - 1])
-                            {
-                                Poster.Post("This item can not be purchased or you can not afford it, either way you walk away emptyhanded");
-                            }
+                            var item = GameItem.GetItem(purchitem);
+                            Poster.Post($"You Purchased {item.MyName}");
                         }
+                        else Poster.Post("This item can not be purchased or you can not afford it, either way you walk away emptyhanded");
                         break;
                     case "SELL":
                         Poster.Post("What do you sell?", 1);
                         Poster.Post();
                         string sellitem = string.Empty;
                         sellitem = Input();
-                        foreach (Item Item in GameItem.GameItems)
+                        var result = GameItem.RemoveItemFromInventory(sellitem.ToLower());
+                        if (result)
                         {
-                            if (sellitem.ToUpper() == Item.MyName.ToUpper())
-                            {
-                                Program.Money += (float)Math.Round(Item.MyValue / 2f);
-                                Program.Inventory.Remove(Item);
-                                Poster.Post($"You Sold {Item.MyName} for {Program.PrintValue((int)Math.Round(Item.MyValue / 2f))}");
-                                break;
-                            }
-                            else if (Item == GameItem.GameItems[GameItem.GameItems.Length - 1])
-                            {
-                                Poster.Post("This item can not be sold or you do not have it, either way you walk away no richer than before");
-                            }
-                        }
-                        break;
-                    case "TAKE WANTED POSTER":
-                        if (Program.Inventory.ToArray().Length > 0)
-                        {
-                            for (int i = 0; i < Program.Inventory.ToArray().Length; i++)
-                            {
-                                if (Program.Inventory[i] == GameItem.GameItems[28])
-                                {
-                                    Poster.Post("You already have it");
-                                }
-                                else if (i == Program.Inventory.ToArray().Length - 1)
-                                {
-                                    Poster.Post("You rip the poster off the wall and stuff it into your filthy peasant pockets");
-                                    Program.Inventory.Add(GameItem.GameItems[28]);
-                                }
-                            }
+                            var item = GameItem.GetItem(sellitem);
+                            Program.Money += (float)Math.Round(item.MyValue / 2f);
+                            Poster.Post($"You Sold {item.MyName} for {Program.PrintValue((int)Math.Round(item.MyValue / 2f))}");
                         }
                         else
                         {
-                            Poster.Post("You rip the poster off the wall and stuff it into your filthy peasant pockets");
-                            Program.Inventory.Add(GameItem.GameItems[28]);
+                            Poster.Post("This item can not be sold or you do not have it, either way you walk away no richer than before");
+                        }
+                        break;
+                    case "TAKE WANTED POSTER":
+                        if (Program.CheckInventory("wanted poster"))
+                        {
+                            Poster.Post("You already have it");
+                        }
+                        else
+                        {
+                            if (GameItem.AddItemToInventory("wanted poster")) Poster.Post("You rip the poster off the wall and stuff it into your filthy peasant pockets");
+                            else Poster.Post("Your pockets seem to be filled with other useless crap and you dont seem to find the space for the note");
                         }
                         break;
                     case "GO INTO CHURCH":

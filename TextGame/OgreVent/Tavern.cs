@@ -102,6 +102,10 @@ namespace OgreVent
                                 Program.Health--;
                                 Program.Money -= 2;
                             }
+                            else
+                            {
+                                Poster.Post("You cant afford what the creature is selling, the creature hisses at you as he walks away back to whatever place he came from");
+                            }
                         }
                         else if (TempInput.ToUpper() == "NO")
                         {
@@ -122,7 +126,7 @@ namespace OgreVent
                             Int32.TryParse(Input(), out BetAmount);
                             if (Program.Money < BetAmount)
                             {
-                                Poster.Post("Sorry you dont have that much Program.Money, you are asked to leave the table");
+                                Poster.Post("Sorry you dont have that much money, you are asked to leave the table");
                             }
                             else
                             {
