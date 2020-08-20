@@ -23,6 +23,7 @@ namespace OgreVent
                 switch (MyAction.ToUpper())
                 {
                     case "GO TO MARKEDPLACE":
+                        Poster.Post("You walk away from the town hall, away from the rich inner city and back to the markedplace", 1);
                         Program.Location = "Markedplace";
                         break;
                     case "LOOK LEFT":

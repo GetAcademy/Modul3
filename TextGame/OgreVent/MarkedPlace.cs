@@ -51,11 +51,11 @@ namespace OgreVent
                         Poster.Post("You see the main road in and out of this markedplace, it is rather spacious compared to the standards of the inner city you would think it is about 7 meters wide. Down the road you can see the silhouette of a guard tower basking in the morning sun.");
                         break;
                     case "JUMP DOWN THE WELL":
-                        Poster.Post("You throw your body over the side of the well and you fall and bruise youself along the slippery sides until you hit the water with a splash your leg is caught in the bucket and your entire body is flipped upside down as your head hits the hard bottom of the well you gasp for air and take in water, after much struggling you manage to get out of the well with the help of the locals. Some people in the marketplace is giving you weird looks. Why you would ever do this is beyond you");
+                        Poster.Post("You throw your body over the side of the well and you fall and bruise youself along the slippery sides until you hit the water with a splash your leg is caught in the bucket and your entire body is flipped upside down as your head hits the hard bottom of the well you gasp for air and take in water, after much struggling you manage to get out of the well with the help of the locals. Some people in the marketplace is giving you weird looks. Why you would ever do this is beyond you", 1);
                         Program.Health--;
                         break;
                     case "TALK TO METALWORKS MERCHANT":
-                        Poster.Post("what do you talk about?");
+                        Poster.Post("what do you talk about?", 1);
                         Poster.Post("Prices");
                         Poster.Post("Local Places", 0, false);
                         string tempA = string.Empty;
@@ -80,7 +80,7 @@ namespace OgreVent
                         }
                         break;
                     case "TALK TO FOOD MERCHANT":
-                        Poster.Post("what do you talk about?");
+                        Poster.Post("what do you talk about?",1);
                         Poster.Post("Prices");
                         Poster.Post("Local Places", 0, false);
                         string tempB = string.Empty;
@@ -103,7 +103,7 @@ namespace OgreVent
                         }
                         break;
                     case "TALK TO JEWELRY MERCHANT":
-                        Poster.Post("what do you talk about?");
+                        Poster.Post("what do you talk about?", 1);
                         Poster.Post("Prices");
                         Poster.Post("Local Places", 0, false);
                         string tempC = string.Empty;
@@ -127,7 +127,7 @@ namespace OgreVent
                         }
                         break;
                     case "TALK TO JUNK MERCHANT":
-                        Poster.Post("what do you talk about?");
+                        Poster.Post("what do you talk about?", 1);
                         Poster.Post("Prices");
                         Poster.Post("What do you sell?", 0, false);
                         string tempD = string.Empty;
@@ -151,7 +151,7 @@ namespace OgreVent
                         }
                         break;
                     case "TALK TO ARMOR MERCHANT":
-                        Poster.Post("what do you talk about?");
+                        Poster.Post("what do you talk about?", 1);
                         Poster.Post("Prices");
                         Poster.Post("Who Makes It?", 0, false);
                         string tempE = string.Empty;
@@ -175,7 +175,7 @@ namespace OgreVent
                         }
                         break;
                     case "STEAL":
-                        Poster.Post("what do you attempt to steal?");
+                        Poster.Post("what do you attempt to steal?", 1);
                         Poster.Post();
                         string stealA = string.Empty;
                         stealA = Input().ToUpper();
@@ -223,7 +223,7 @@ namespace OgreVent
                         }
                         break;
                     case "SELL":
-                        Poster.Post("What do you sell?");
+                        Poster.Post("What do you sell?", 1);
                         Poster.Post();
                         string sellitem = string.Empty;
                         sellitem = Input();
@@ -273,23 +273,23 @@ namespace OgreVent
                         Program.Location = "Tavern";
                         break;
                     case "GO TO TOWN HALL":
-                        Poster.Post("You walk to the Town Hall located in the northern part of town,\n as you stand outside the Town Hall you notice that there are more guards here, the people look, walk and talk in a way that would suggest they come from wealth.\n The Town Hall itself has a bell tower with a spire. The Hall is made out of stone for the most part but the stone is painted white, however the spire is made out of wood and is seemingly the only major part of the Hall that is made of wood.");
+                        Poster.Post("You walk to the Town Hall located in the northern part of town,\n as you stand outside the Town Hall you notice that there are more guards here, the people look, walk and talk in a way that would suggest they come from wealth.\n The Town Hall itself has a bell tower with a spire. The Hall is made out of stone for the most part but the stone is painted white, however the spire is made out of wood and is seemingly the only major part of the Hall that is made of wood.", 2);
                         Program.Location = "Town Hall";
                         break;
                     case "GO TO CHESTLOCK GUILD HALL":
-                        Poster.Post("You walk to the Chestlock Guild Hall, as you arrive you find that the Guild Hall is actually a Fort with crenellations and everything with a Guild Hall instead of barracks and storage houses instead of stables and other normal structures to be found in a more tradiotional fort.\n And all this inside the city, there is a steady flow of people entering and leaving the Forts gate, and the guards standing by the gate and above on the wall seem ever so vigilant.");
+                        Poster.Post("You walk to the Chestlock Guild Hall, as you arrive you find that the Guild Hall is actually a Fort with crenellations and everything with a Guild Hall instead of barracks and storage houses instead of stables and other normal structures to be found in a more tradiotional fort.\n And all this inside the city, there is a steady flow of people entering and leaving the Forts gate, and the guards standing by the gate and above on the wall seem ever so vigilant.", 2);
                         Program.Location = "Chestlock Guild Hall";
                         break;
                     case "GO TO HUNTERS LODGE":
-                        Poster.Post("You walk to the Hunters Lodge, there you find a man chopping firewood.\n The Lodge itself takes form in a large cabin it looks rather cozy and homely.");
+                        Poster.Post("You walk to the Hunters Lodge, there you find a man chopping firewood.\n The Lodge itself takes form in a large cabin it looks rather cozy and homely.", 4);
                         Program.Location = "Hunters Lodge";
                         break;
                     case "GO TO BRINEWOOD FOREST":
-                        Poster.Post("You walk to Brinewood Forest, you now stand in the forest there are sounds of birds in the trees, there are moss covered rocks and everything seems calm.");
+                        Poster.Post("You walk to Brinewood Forest, you now stand in the forest there are sounds of birds in the trees, there are moss covered rocks and everything seems calm.", 3);
                         Program.Location = "Brinewood Forest";
                         break;
                     case "GO TO SCHOLARS MARKET":
-                        Poster.Post("You walk to the Scholars Market, the outside area would make you think of this as a street of townhouses but you notice a sign hanging above one of the doors saying 'The Scholars Market'\n. As you enter you understand that this might have at some point been a street of townhouses but has been later turned into a set of shops located on the same floor under one roof, and not just this street the houses that would have been on the next street aswell making this a rather sizable place.\n The smells in the air are varied and exotic");
+                        Poster.Post("You walk to the Scholars Market, the outside area would make you think of this as a street of townhouses but you notice a sign hanging above one of the doors saying 'The Scholars Market'\n. As you enter you understand that this might have at some point been a street of townhouses but has been later turned into a set of shops located on the same floor under one roof, and not just this street the houses that would have been on the next street aswell making this a rather sizable place.\n The smells in the air are varied and exotic", 2);
                         Program.Location = "Scholars Market";
                         break;
                     case "HELP":

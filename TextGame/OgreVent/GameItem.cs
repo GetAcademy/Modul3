@@ -45,5 +45,9 @@ namespace OgreVent
                 new Item("knights gear",0,20,0,15,7),
                 new Item("backpack",50,2,1),
             };
+        public static Item GetItem(string Name)
+        {
+            return GameItems.Select(item => item).Where(item => item.MyName == Name).First();
+        }
     }
 }

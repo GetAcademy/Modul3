@@ -178,6 +178,45 @@ namespace OgreVent
             return string.Empty;
         }
 
+        public static void BeltPouch()
+        {
+            string Bucks = Money.ToString();
+            Poster.Post("Belt Pouch:");
+            if (Bucks.Length == 1)
+            {
+                Poster.Post($"{Money} Copper");
+            }
+            if (Bucks.Length == 2)
+            {
+                Poster.Post($"{Bucks[0]} Silver");
+                Poster.Post($"{Bucks[1]} Copper", 0, false);
+            }
+            if (Bucks.Length == 3)
+            {
+                Poster.Post($"{Bucks[0]} Gold");
+                Poster.Post($"{Bucks[1]} Silver", 0, false);
+                Poster.Post($"{Bucks[2]} Copper", 0, false);
+            }
+            if (Bucks.Length == 4)
+            {
+                Poster.Post($"{Bucks[0]}{Bucks[1]} Gold");
+                Poster.Post($"{Bucks[2]} Silver", 0, false);
+                Poster.Post($"{Bucks[3]} Copper", 0, false);
+            }
+            if (Bucks.Length == 5)
+            {
+                Poster.Post($"{Bucks[0]}{Bucks[1]}{Bucks[2]} Gold");
+                Poster.Post($"{Bucks[3]} Silver", 0, false);
+                Poster.Post($"{Bucks[4]} Copper", 0, false);
+            }
+            if (Bucks.Length == 6)
+            {
+                Poster.Post($"{Bucks[0]}{Bucks[1]}{Bucks[2]}{Bucks[3]} Gold");
+                Poster.Post($"{Bucks[4]} Silver", 0, false);
+                Poster.Post($"{Bucks[5]} Copper", 0, false);
+            }
+        }
+
         public static bool IsAlive = true;
 
         static void Main()
@@ -241,41 +280,7 @@ namespace OgreVent
 
                 if (MyAction.ToUpper() == "MONEY")
                 {
-                    string Bucks = Money.ToString();
-                    Poster.Post("Belt Pouch:");
-                    if (Bucks.Length == 1)
-                    {
-                        Poster.Post($"{Money} Copper");
-                    }
-                    if (Bucks.Length == 2)
-                    {
-                        Poster.Post($"{Bucks[0]} Silver");
-                        Poster.Post($"{Bucks[1]} Copper", 0, false);
-                    }
-                    if (Bucks.Length == 3)
-                    {
-                        Poster.Post($"{Bucks[0]} Gold");
-                        Poster.Post($"{Bucks[1]} Silver", 0, false);
-                        Poster.Post($"{Bucks[2]} Copper", 0, false);
-                    }
-                    if (Bucks.Length == 4)
-                    {
-                        Poster.Post($"{Bucks[0]}{Bucks[1]} Gold");
-                        Poster.Post($"{Bucks[2]} Silver", 0, false);
-                        Poster.Post($"{Bucks[3]} Copper", 0, false);
-                    }
-                    if (Bucks.Length == 5)
-                    {
-                        Poster.Post($"{Bucks[0]}{Bucks[1]}{Bucks[2]} Gold");
-                        Poster.Post($"{Bucks[3]} Silver", 0, false);
-                        Poster.Post($"{Bucks[4]} Copper", 0, false);
-                    }
-                    if (Bucks.Length == 6)
-                    {
-                        Poster.Post($"{Bucks[0]}{Bucks[1]}{Bucks[2]}{Bucks[3]} Gold");
-                        Poster.Post($"{Bucks[4]} Silver", 0, false);
-                        Poster.Post($"{Bucks[5]} Copper", 0, false);
-                    }
+                    BeltPouch();
                     continue;
                 }
 

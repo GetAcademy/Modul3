@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace OgreVent
                         Poster.Post("Behind you, you can see private guards sitting around the exit, looking around for troublemakers, and a man sleeping at the table. His glass was half full until the barmaid came over and poured the remaining grog into a keg you are sure they also use when serving a fresh mug, some things can not be unseen.");
                         break;
                     case "TALK TO BARKEEP":
-                        Poster.Post("What do you talk about?");
+                        Poster.Post("What do you talk about?", 1);
                         Poster.Post("Local News", 0, false);
                         Poster.Post("Price for grog", 0, false);
                         Poster.Post("Price for stew", 0, false);
@@ -60,7 +61,7 @@ namespace OgreVent
                     case "BUY GROG":
                         if (Program.Money > 1)
                         {
-                            Poster.Post("You buy a mug of grog, you then take your time to drink it, for the price for a mug its not bad, but it is also very far from tasty");
+                            Poster.Post("You buy a mug of grog, you then take your time to drink it, for the price for a mug its not bad, but it is also very far from tasty", 1);
                             Program.Money--;
                         }
                         else
@@ -73,15 +74,16 @@ namespace OgreVent
                         {
                             Poster.Post("You buy stew it smells weird and its content is not even visually identifiable certain chunks come with a texture of overboiled fabric, whatever food is food right yet your stomach has never complained this much in its entire life before");
                             Program.Money--;
+                            Program.time = 20;
                             if (Program.Money > 0)
                             {
-                                Poster.Post("you buy a mug of grog to settle your stomach, it works ... kind of.");
+                                Poster.Post("you buy a mug of grog to settle your stomach, it works ... kind of.", 1);
                                 Program.Money--;
                             }
                             else
                             {
-                                Poster.Post("You may have eaten something you shouldnt");
-                                Program.Health--;
+                                Poster.Post("You may have eaten something you shouldnt", 1);
+                                if(random.Next(1,11) > 7) Program.Health--;
                             }
                         }
                         else
@@ -90,13 +92,13 @@ namespace OgreVent
                         }
                         break;
                     case "SIT UNDER STAIRS":
-                        Poster.Post("You sit down under the staircase and a man... or what you think is a man, sits down with you shortly after. with a rough as gravel voice the creature utters 'do you want to by Fleggersh?'\nwhat do you say?");
+                        Poster.Post("You sit down under the staircase and a man... or what you think is a man, sits down with you shortly after. with a rough as gravel voice the creature utters 'do you want to buy Fleggersh?'\nwhat do you say?", 1);
                         string TempInput = Input();
                         if (TempInput.ToUpper() == "YES")
                         {
                             if (Program.Money >= 2)
                             {
-                                Poster.Post("you recieve a weird mushroom rolled up in a leaf you dont recognize, you eat it. You go on wild adventures and lose track of time though you remain seated.");
+                                Poster.Post("you recieve a weird mushroom rolled up in a leaf you dont recognize, you eat it. You go on wild adventures and lose track of time, though you remain seated.", 3);
                                 Program.Health--;
                                 Program.Money -= 2;
                             }
@@ -111,25 +113,34 @@ namespace OgreVent
                         }
                         break;
                     case "PLAY CARDS":
-                        Poster.Post("You sit down at the table with the other fellas playing and having a good time\nHow many coppers do you bet?");
+                        Poster.Post("You sit down at the table with the other fellas playing and having a good time");
                         int BetAmount;
-                        Int32.TryParse(Input(), out BetAmount);
-                        if (Program.Money < BetAmount)
+                        string AnotherHandAnswer = null;
+                        while(AnotherHandAnswer == null || AnotherHandAnswer.ToUpper() == "YES")
                         {
-                            Poster.Post("Sorry you dont have that much Program.Money, you are asked to leave the table");
-                        }
-                        else
-                        {
-                            if (random.Next(1, 7) == 6)
+                            Poster.Post("How many coppers do you bet?");
+                            Int32.TryParse(Input(), out BetAmount);
+                            if (Program.Money < BetAmount)
                             {
-                                Poster.Post("You Win this hand");
-                                Program.Money += (float)Math.Round(BetAmount * 1.5);
+                                Poster.Post("Sorry you dont have that much Program.Money, you are asked to leave the table");
                             }
                             else
                             {
-                                Poster.Post("You lose this hand");
-                                Program.Money -= BetAmount;
+                                if (random.Next(1, 7) == 6)
+                                {
+                                    Poster.Post("You Win this hand", 1);
+                                    Program.Money += (float)Math.Round(BetAmount * 1.5);
+                                    Program.BeltPouch();
+                                }
+                                else
+                                {
+                                    Poster.Post("You lose this hand", 1);
+                                    Program.Money -= BetAmount;
+                                    Program.BeltPouch();
+                                }
                             }
+                            Poster.Post("Another Hand?");
+                            AnotherHandAnswer = Input();
                         }
                         break;
                     case "LEAVE":

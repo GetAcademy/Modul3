@@ -35,7 +35,7 @@ namespace OgreVent
                         Poster.Post("Behind you there is the way back out");
                         break;
                     case "TALK TO PRIEST":
-                        Poster.Post("what do you talk to him about?");
+                        Poster.Post("what do you talk to him about?", 1);
                         Poster.Post();
                         Poster.Post("Ask about funeral");
                         Poster.Post("Ask about Yellegors Belongings");
@@ -70,7 +70,7 @@ namespace OgreVent
                         }
                         break;
                     case "WAKE GUARD":
-                        Poster.Post("The Guard thanks you for waking him but as time passes and the church breaks to remain calm and silent he falls asleep again, who could blame him the atmosphere is rather calming.");
+                        Poster.Post("The Guard thanks you for waking him but as time passes and the church breaks to remain calm and silent he falls asleep again, who could blame him the atmosphere is rather calming.", 1);
                         break;
                     case "TAKE KEY":
                         for (int i = 0; i < Program.Inventory.ToArray().Length; i++)
