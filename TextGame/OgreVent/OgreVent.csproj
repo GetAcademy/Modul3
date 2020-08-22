@@ -50,6 +50,7 @@
     <Compile Include="ChestlockGuildHall.cs" />
     <Compile Include="Church.cs" />
     <Compile Include="GameItem.cs" />
+    <Compile Include="GlobalBools.cs" />
     <Compile Include="HuntersLodge.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MarkedPlace.cs" />

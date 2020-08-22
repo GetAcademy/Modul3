@@ -73,46 +73,15 @@ namespace OgreVent
                         Poster.Post("The Guard thanks you for waking him but as time passes and the church breaks to remain calm and silent he falls asleep again, who could blame him the atmosphere is rather calming.", 1);
                         break;
                     case "TAKE KEY":
-                        for (int i = 0; i < Program.Inventory.ToArray().Length; i++)
+                        if(Program.CheckInventory("church key"))
                         {
-                            if (Program.Inventory[i].MyName == "church key")
-                            {
-                                Poster.Post("You already have this");
-                                break;
-                            }
-                            else if (i == Program.Inventory.ToArray().Length - 1)
-                            {
-                                if (Program.CheckInventory("ring of invisibility"))
-                                {
-                                    Poster.Post("You put on the ring of invisibility, rendering you unseen to the naked eye.");
-                                    Poster.Post("You then snatch the key from the guards belt.");
-                                    if(random.Next(1, 11) == 1)
-                                    {
-                                        Poster.Post("The guard wakes, but does not notice you or that his keys are missing");
-                                        Poster.Post("he goes back to sleep soon after and you take the ring off again");
-                                    }
-                                    else
-                                    {
-                                        Poster.Post("The guard does not wake up.");
-                                    }
-                                    Program.Inventory.Add(GameItem.GameItems[30]);
-                                    break;
-                                }
-                                else if (random.Next(1, 11) != 1)
-                                {
-                                    Poster.Post("You snatch the key from the guards belt");
-                                    Program.Inventory.Add(GameItem.GameItems[30]);
-                                    break;
-                                }
-                                else
-                                {
-                                    Poster.Post("As you stealthfully grasp the guards key he wakes up and suckerpunches you into the ground, more guards come and pummel you, as you lay on the ground not knowing wether you are concious or not they tell you to leave your wicked ways.\n They tell you to pray at the altar for forgiveness");
-                                    Program.Health--;
-                                }
-                                break;
-                            }
+                            Poster.Post("You already have this");
                         }
-                        if (Program.Inventory.ToArray().Length == 0)
+                        else if (GlobalBools.TookChurchKey)
+                        {
+                            Poster.Post("At some point you took this key and then you got rid of it, the guard has not aquired another key, in fact it seems he has been busy sleeping");
+                        }
+                        else
                         {
                             if (Program.CheckInventory("ring of invisibility"))
                             {
@@ -127,12 +96,28 @@ namespace OgreVent
                                 {
                                     Poster.Post("The guard does not wake up.");
                                 }
-                                Program.Inventory.Add(GameItem.GameItems[30]);
+                                if(GameItem.AddItemToInventory("church key"))
+                                {
+                                    Poster.Post("You put the key away in your pocket");
+                                    GlobalBools.TookChurchKey = true;
+                                }
+                                else
+                                {
+                                    Poster.Post("However you seem to be unable to find a place to put it, all your pockets are filled to the brim!, you decide to gently put the key back where you found it");
+                                }
                             }
                             else if (random.Next(1, 11) != 1)
                             {
                                 Poster.Post("You snatch the key from the guards belt");
-                                Program.Inventory.Add(GameItem.GameItems[30]);
+                                if (GameItem.AddItemToInventory("church key"))
+                                {
+                                    Poster.Post("You put the key away in your pocket");
+                                    GlobalBools.TookChurchKey = true;
+                                }
+                                else
+                                {
+                                    Poster.Post("However you seem to be unable to find a place to put it, all your pockets are filled to the brim!, you decide to gently put the key back where you found it");
+                                }
                             }
                             else
                             {

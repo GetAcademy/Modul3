@@ -207,9 +207,17 @@ namespace OgreVent
                         {
                             Poster.Post("You already have it");
                         }
+                        else if (GlobalBools.TookWantedPoster)
+                        {
+                            Poster.Post("You remember that you had already ripped the wanted poster off the wall, and then you got rid of it, it is now lost to you forever");
+                        }
                         else
                         {
-                            if (GameItem.AddItemToInventory("wanted poster")) Poster.Post("You rip the poster off the wall and stuff it into your filthy peasant pockets");
+                            if (GameItem.AddItemToInventory("wanted poster")) 
+                            {
+                                Poster.Post("You rip the poster off the wall and stuff it into your filthy peasant pockets");
+                                GlobalBools.TookWantedPoster = true;
+                            }
                             else Poster.Post("Your pockets seem to be filled with other useless crap and you dont seem to find the space for the note");
                         }
                         break;
