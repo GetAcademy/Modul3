@@ -127,100 +127,90 @@ namespace OgreVent
                         }
                         break;
                     case "TAKE LANTERN":
-                        for (int i = 0; i < Program.Inventory.ToArray().Length; i++)
+                        if(Program.CheckInventory("church lantern"))
                         {
-                            if (Program.Inventory[i].MyName == "church lantern")
-                            {
-                                Poster.Post("You already have this");
-                                break;
-                            }
-                            else if (i == Program.Inventory.ToArray().Length - 1)
-                            {
-                                Poster.Post("You take the unlit lantern off the wall, lighting it is no problem there are small twigs meant for lighting candles left inside the lantern next to the candle and lit candles around the church.");
-                                Program.Inventory.Add(GameItem.GameItems[31]);
-                                break;
-                            }
+                            Poster.Post("You already have this");
                         }
-                        if (Program.Inventory.ToArray().Length == 0)
+                        else if (GlobalBools.TookChurchLantern)
                         {
-                            Poster.Post("You take the unlit lantern off the wall, lighting it is no problem there are small twigs meant for lighting candles left inside the lantern next to the candle and lit candles around the church.");
-                            Program.Inventory.Add(GameItem.GameItems[31]);
+                            Poster.Post("You already took this at some point, and then you got rid of it remember? maybe you should have held onto it when you had it?");
+                        }
+                        else
+                        {
+                            if (GameItem.AddItemToInventory("church lantern")) Poster.Post("You take the unlit lantern off the wall, lighting it is no problem there are small twigs meant for lighting candles left inside the lantern next to the candle and lit candles around the church.");
+                            else Poster.Post("You would take the lantern if you only had somewhere to put the damn thing");
                         }
                         break;
                     case "OPEN DOOR":
-                        for (int i = 0; i < Program.Inventory.ToArray().Length; i++)
+                        if(Program.CheckInventory("church key"))
                         {
-                            if (Program.Inventory[i].MyName == "church key")
+                            Poster.Post("You unlock the door and go down the dark staircase");
+                            if(Program.CheckInventory("church lantern"))
                             {
-                                Poster.Post("You unlock the door and go down the dark staircase");
-                                for (int j = 0; j < Program.Inventory.ToArray().Length; j++)
+                                Poster.Post("You light the lantern on your way down and when you reach the bottom you can see a casket in a room ahead of you laying on a table as you inspect it you find out it is Sir Yellegor Yellowflags casket");
+                                Poster.Post("Do you 'Open the Casket' or 'Say Goodbye'");
+                                string TempAction = Input();
+                                if (TempAction.ToUpper() == "OPEN THE CASKET")
                                 {
-                                    if (Program.Inventory[j].MyName == "church lantern")
+                                    if (Program.CheckInventory("knights gear"))
                                     {
-                                        Poster.Post("You light the lantern on your way down and when you reach the bottom you can see a casket in a room ahead of you laying on a table as you inspect it you find out it is Sir Yellegor Yellowflags casket");
-                                        Poster.Post("Do you 'Open the Casket' or 'Say Goodbye'");
-                                        string TempAction = Input();
-                                        if (TempAction.ToUpper() == "OPEN THE CASKET")
+                                        Poster.Post("You open the casket to reveal his body, you say a prayer then leave");
+                                        break;
+                                    }
+                                    else if (GlobalBools.TookKnightsGear)
+                                    {
+                                        Poster.Post("You open the casket to reveal his body, you say a prayer then leave");
+                                        break;
+                                    }
+                                    Poster.Post("You open the casket to reveal his body he is clad in his armour his sword lay beside him and his shield lay on his chest");
+                                    Poster.Post("Do you 'take his gear' or do you 'leave'");
+                                    string TempAction2 = Input();
+                                    if (TempAction2.ToUpper() == "TAKE HIS GEAR")
+                                    {
+                                        if(Program.CheckInventory("knights gear"))
                                         {
-                                            if (Program.CheckInventory("knights gear"))
-                                            {
-                                                Poster.Post("You open the casket to reveal his body, you say a prayer then leave");
-                                                break;
-                                            }
-                                            Poster.Post("You open the casket to reveal his body he is clad in his armour his sword lay beside him and his shield lay on his chest");
-                                            Poster.Post("Do you 'take his gear' or do you 'leave'");
-                                            string TempAction2 = Input();
-                                            if (TempAction2.ToUpper() == "TAKE HIS GEAR")
-                                            {
-                                                for (int g = 0; g < Program.Inventory.ToArray().Length; g++)
-                                                {
-                                                    if (Program.Inventory[g].MyName == "knights gear")
-                                                    {
-                                                        Poster.Post("You already have this");
-                                                        break;
-                                                    }
-                                                    else if (g == Program.Inventory.ToArray().Length - 1)
-                                                    {
-                                                        Poster.Post("You take your masters gear and put it on, noone would even recognize a peasant like you in this shining armor. You leave the basement");
-                                                        Program.Inventory.Add(GameItem.GameItems[32]);
-                                                        break;
-                                                    }
-                                                }
-                                                break;
-                                            }
-                                            else if (TempAction2.ToUpper() == "LEAVE")
-                                            {
-                                                Poster.Post("You close the casket and return to the church");
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                Poster.Post("Say what? Anyways you leave");
-                                            }
-                                        }
-                                        else if (TempAction.ToUpper() == "SAY GOODBYE")
-                                        {
-                                            Poster.Post("After you say your last goodbyes and have a good cry... alone... in the dark undercroft of the church, like the absolute loser that you are, you pull yourself together and return to the first floor of the church");
+                                            Poster.Post("You already have this");
                                         }
                                         else
                                         {
-                                            Poster.Post("I have no idea what you just wrote but im sure it was gross, good for you. You return to the first floor of the church");
+                                            if (GameItem.AddItemToInventory("knights gear"))
+                                            {
+                                                Poster.Post("You take your masters gear and put it on, noone would even recognize a peasant like you in this shining armor. You leave the basement");
+                                                GlobalBools.TookKnightsGear = true;
+                                            }
+                                            else
+                                            {
+                                                Poster.Post("If you could carry your masters gear you would, but it is heavy and large, and you have clearly prioritized carrying other things");
+                                            }
                                         }
+                                        break;
                                     }
-                                    else if (j == Program.Inventory.ToArray().Length - 1)
+                                    else if (TempAction2.ToUpper() == "LEAVE")
                                     {
-                                        Poster.Post("On your way down into the dark you slip and fall, you are hurt but manage to climb up the stairs and shut the door before you realise that you hurt your head pretty bad down there.");
-                                        Program.Health--;
+                                        Poster.Post("You close the casket and return to the church");
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Poster.Post("Say what? Anyways you leave");
                                     }
                                 }
-                                break;
+                                else if (TempAction.ToUpper() == "SAY GOODBYE")
+                                {
+                                    Poster.Post("After you say your last goodbyes and have a good cry... alone... in the dark undercroft of the church, like the absolute loser that you are, you pull yourself together and return to the first floor of the church");
+                                }
+                                else
+                                {
+                                    Poster.Post("I have no idea what you just wrote but im sure it was gross, good for you. You return to the first floor of the church");
+                                }
                             }
-                            else if (i == Program.Inventory.ToArray().Length - 1)
+                            else
                             {
-                                Poster.Post("The door is locked.");
+                                Poster.Post("On your way down into the dark you slip and fall, you are hurt but manage to climb up the stairs and shut the door before you realise that you hurt your head pretty bad down there.");
+                                Program.Health--;
                             }
                         }
-                        if (Program.Inventory.ToArray().Length == 0)
+                        else
                         {
                             Poster.Post("The door is locked.");
                         }

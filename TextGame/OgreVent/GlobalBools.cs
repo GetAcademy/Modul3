@@ -11,5 +11,6 @@ namespace OgreVent
         public static bool TookWantedPoster = false;
         public static bool TookChurchKey = false;
         public static bool TookChurchLantern = false;
+        public static bool TookKnightsGear = false;
     }
 }
