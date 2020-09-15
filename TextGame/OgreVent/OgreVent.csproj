@@ -61,6 +61,11 @@
     <Compile Include="AmbiencePlayer.cs" />
     <Compile Include="Tavern.cs" />
     <Compile Include="TownHall.cs" />
+    <Compile Include="DemonPit.cs" />
+    <Compile Include="InsidePit.cs" />
+    <Compile Include="InsidePitLevel2.cs" />
+    <Compile Include="InsidePitLevel3.cs" />
+    <Compile Include="InsidePitLevel4.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
