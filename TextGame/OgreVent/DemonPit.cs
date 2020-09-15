@@ -20,26 +20,39 @@ namespace OgreVent
 
             if (Program.Location == "Demon Pit")
             {
-                if (!AmbiencePlayer.SoundOn) AmbiencePlayer.PlaySong("TownCave");
-                else if(AmbiencePlayer.CurrentlyPlaying != "TownCave")
-                {
-                    AmbiencePlayer.SoundOn = false;
-                    AmbiencePlayer.PlaySong("TownCave");
-                }
-                if (Console.ForegroundColor == ConsoleColor.White) Console.ForegroundColor = ConsoleColor.Gray;
                 switch (MyAction.ToUpper())
                 {
                     case "LOOK FORWARD":
-                        Poster.Post("");
+                        Poster.Post("Ahead of you," +
+                                    " you can see the lumber stuck into the sides of this circular cave stretching down into the dark," +
+                                    " with no other light source than the one from the open door behind you," +
+                                    " beyond that lumber is the edge");
                         break;
                     case "LOOK LEFT":
-                        Poster.Post("");
+                        Poster.Post("To your left," +
+                            " you see the people busy with their paperwork," +
+                            " their bland atmosphere that they exude from the interactions they have with their work and with each other seems almost cheerfull," +
+                            " compared to the feeling of dread and emptiness that washes over you," +
+                            " in a sense you recognise that this feeling is eminating from the pit," +
+                            " but you excuse it as just the shock of discovering this highly unexpected... place");
                         break;
                     case "LOOK RIGHT":
-                        Poster.Post("");
+                        Poster.Post("To your right, still standing outside the mahagony doors," +
+                            " Is a hallway leading down a corridor with many doors on both sides," +
+                            " presumably leading to boring offices with people coming and going frequently," +
+                            " some passing you by," +
+                            " not even recognising the now open mahagony doors or the contents within");
                         break;
                     case "LOOK BEHIND":
-                        Poster.Post("");
+                        Poster.Post("Behind you," +
+                            " is the carpeted path leading back to the double doors out of this building," +
+                            " and the desks on each side of this path, each side has 3 desks on 3 rows," +
+                            " the desks are all facing away from you," +
+                            " a certain want for leaving comes to mind as you see the rays of sunlight slip between the cracks of the doors out");
+                        break;
+                    case "ENTER PIT":
+                        Poster.Post("You walk past the mahagony doors and step onto the first steps of the old wooden staircase");
+                        Program.Location = "Inside Pit";
                         break;
                     case "LEAVE":
                         Poster.Post("You manage to claw your way out passing the mahagony doors and leave the building and return to the outside of the town hall.");
@@ -52,6 +65,7 @@ namespace OgreVent
                         Poster.Post("Look Left", 0, false);
                         Poster.Post("Look Right", 0, false);
                         Poster.Post("Look Behind", 0, false);
+                        Poster.Post("Enter Pit", 0, false);
                         Poster.Post("Leave", 0, false);
                         break;
                     default:
