@@ -52,6 +52,7 @@
     <Compile Include="GameItem.cs" />
     <Compile Include="GlobalBools.cs" />
     <Compile Include="HuntersLodge.cs" />
+    <Compile Include="InsidePitLevel5.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MarkedPlace.cs" />
     <Compile Include="Poster.cs" />

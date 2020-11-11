@@ -34,7 +34,7 @@ namespace OgreVent
                             " the carved out shelves does not seem organised," +
                             " each shelf is of a non uniform size and shape," +
                             " and is allocated in a non uniform way to the others," +
-                            " no discernable patterns can be observed in these shelved," +
+                            " no discernable patterns can be observed in these shelves," +
                             " likewise the content of the shelves is equally disorganised," +
                             " filled with papers, books, scrolls, letters and other little trinkets but mostly papers and such.");
                         break;
@@ -50,14 +50,29 @@ namespace OgreVent
                             " and you spend a few moments calming down and the sensation subsides..." +
                             " you are left with only the general uneasiness that has been with you since you entered this place.");
                         break;
+                    case "JUMP DOWN":
+                        Poster.Post("You throw yourself over the side into the center of the pit," +
+                            " you fall far," +
+                            " you fall fast," +
+                            " you fall for a long time," +
+                            " before you are finally awarded with the discovery of the bottom.");
+                        Program.IsAlive = false;
+                        break;
+                    case "INSPECT SHELVES":
+                        Poster.Post("You walk over to the shelves and take a pile of papers and such out and hold it in one arm," +
+                            " as you set your lantern down in the shelf you begin to go through the contents resting on your forearm." +
+                            " Most of the papers are written in different shades of red," +
+                            " sadly peasants like yourself cant read, however the papers that are written in shades of read all seem to have a demonic symbol on them," +
+                            " and they all seem to have one or more signatures on them");
+                        break;
                     case "DESCEND":
                         Poster.Post("You continue further down into the pit," +
                             " a state of fear elevates and hangs over you," +
-                            " and you experience a self realisation and awareness that something is wrong with a refusal to accept that.");
+                            " and you experience a self realisation and awareness that something is wrong with a refusal to accept that.", 1);
                         Program.Location = "Inside Pit Level 3";
                         break;
                     case "ASCEND":
-                        Poster.Post("You walk back up the staircase");
+                        Poster.Post("You walk back up the staircase, somewhat relieved", 1);
                         Program.Location = "Inside Pit";
                         break;
                     case "HELP":
@@ -69,6 +84,7 @@ namespace OgreVent
                         Poster.Post("Look Behind", 0, false);
                         Poster.Post("Descend", 0, false);
                         Poster.Post("Ascend", 0, false);
+                        Poster.Post("Jump Down", 0, false);
                         break;
                     default:
                         Poster.Post("In this pit you may not take such an action, however i can always offer you the option to cower in fear!");

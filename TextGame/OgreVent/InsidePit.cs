@@ -57,7 +57,7 @@ namespace OgreVent
                         Poster.Post("You walk down the staircase");
                         if(Program.CheckInventory("church lantern"))
                         {
-                            Poster.Post("You light the lantern you found in the church earlier which makes it possible to traverse this staircase");
+                            Poster.Post("You light the lantern you found in the church earlier which makes it possible to traverse this staircase", 1);
                             Program.Location = "Inside Pit Level 2";
                         }
                         else
@@ -68,6 +68,8 @@ namespace OgreVent
                         break;
                     case "LEAVE":
                         Poster.Post("You walk back out past the mahagony doors");
+                        AmbiencePlayer.SoundOn = false;
+                        Console.ForegroundColor = ConsoleColor.White;
                         Program.Location = "Demon Pit";
                         break;
                     case "HELP":
