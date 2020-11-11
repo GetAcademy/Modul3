@@ -13,5 +13,7 @@ namespace OgreVent
         public static bool TookChurchLantern = false;
         public static bool TookKnightsGear = false;
         public static bool CoffinInspected = false;
+        public static bool SurvivedTheMayor = false;
+        public static bool TookTheMayorsRing = false;
     }
 }

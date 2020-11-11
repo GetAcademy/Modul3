@@ -44,6 +44,7 @@ namespace OgreVent
                 new Item("church lantern",0,2,3),
                 new Item("knights gear",0,20,0,15,7),
                 new Item("backpack",50,2,1),
+                new Item("mayors ring",0,0),
             };
         public static bool RemoveItemFromInventory(string Name)
         {

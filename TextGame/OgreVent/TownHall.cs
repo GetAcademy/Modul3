@@ -51,8 +51,16 @@ namespace OgreVent
                                 switch (TempString)
                                 {
                                     case "OPEN THE DOOR":
-                                        Poster.Post("just before you open the doors you can hear voices from the other side of the intimidatingly valuable doors when you open them you are faced with an empty room, or less of a room and just a deep swallowing pit, dirty dark and empty an old wooden staircase made out of timber lodged into the sides of the pit creating a circling pathway down into the deep darkness");
-                                        Program.Location = "Demon Pit";
+                                        if (!GlobalBools.SurvivedTheMayor)
+                                        {
+                                            Poster.Post("just before you open the doors you can hear voices from the other side of the intimidatingly valuable doors when you open them you are faced with an empty room, or less of a room and just a deep swallowing pit, dirty dark and empty an old wooden staircase made out of timber lodged into the sides of the pit creating a circling pathway down into the deep darkness");
+                                            Program.Location = "Demon Pit";
+                                        }
+                                        else
+                                        {
+                                            Poster.Post("You knock gently on the mahagony doors before entering the mayors office");
+                                            Program.Location = "Mayors Office";
+                                        }
                                         break;
                                     case "LEAVE":
                                         break;

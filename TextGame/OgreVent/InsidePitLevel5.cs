@@ -102,11 +102,34 @@ namespace OgreVent
                         Console.ReadKey();
                         if(Program.CheckInventory("wooden holy symbol"))
                         {
-
+                            Poster.Post("As the man walks closer, your wooden holy symbol begins to vibrate");
+                            Poster.Post("'And it seems you have the aptitude to wear that pitiful little trinket of yours," +
+                                " very well clever one, your faith shall keep your worthless existence in this world for yet another day," +
+                                " but you will submit to my will and return something of mine from a place im unwilling to go," +
+                                " you will go into the church located on the marketplace," +
+                                " and you will find and return my ring to me, you shall know it by the faint blue with the twisted pattern of gold detailing'", 0, false);
+                            Poster.Post("You are compelled to submit to this creatures will by the overwhelming horror his words bring upon you", 0, false);
+                            if (AmbiencePlayer.SoundOn && AmbiencePlayer.CurrentlyPlaying == "TownCave") AmbiencePlayer.SoundOn = false;
+                            Poster.Post("The cave around you changes into a fine luxurious office space in the blink of an eye as if it had always been exactly that," +
+                                " the sun shines through the windows," +
+                                " and the man picks up a glass from the mahagony desk and takes a swig of the brown transluscent liquid contained within," +
+                                " there is a knock on the door and a woman peaks in and says" +
+                                " 'there is a paladin Faramir here to see you mayor, should i send him in?'" +
+                                " to which the man answers" +
+                                " 'yes'," +
+                                " before he turns back to you and says" +
+                                " 'well you have matters to attend to, off you go then'" +
+                                " as you walk out of the office an armored man passes you by and enters the office," +
+                                " from what you just experienced you fully expected the paladin to charge at the creature arms raised ready to kill," +
+                                " instead you observe friendly gestures shared between the two of them as you exit the town hall", 1, false);
+                            if (Console.ForegroundColor == ConsoleColor.DarkRed) Console.ForegroundColor = ConsoleColor.White;
+                            GlobalBools.SurvivedTheMayor = true;
+                            Program.Location = "Town Hall";
                         }
                         else
                         {
-
+                            Poster.Post("The man flicks his fingers and you feel like you are on fire and your very life leaving your body, as your consciousness fade you fall onto the ground");
+                            Program.IsAlive = false;
                         }
                         break;
                     case "HELP":
