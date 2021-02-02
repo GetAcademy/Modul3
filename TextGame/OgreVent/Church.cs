@@ -36,10 +36,10 @@ namespace OgreVent
                         break;
                     case "TALK TO PRIEST":
                         Poster.Post("what do you talk to him about?", 1);
-                        Poster.Post();
-                        Poster.Post("Ask about funeral");
-                        Poster.Post("Ask about Yellegors Belongings");
-                        Poster.Post("Ask to see Yellegors body");
+                        Poster.Post("Ask about funeral", 0, false);
+                        Poster.Post("Ask about Yellegors Belongings", 0, false);
+                        Poster.Post("Ask to see Yellegors body", 0, false);
+                        if (GlobalBools.SurvivedTheMayor) Poster.Post();
                         string LocalInput = Input();
                         Poster.Post();
                         if (LocalInput.ToUpper() == "ASK ABOUT FUNERAL")
@@ -53,6 +53,10 @@ namespace OgreVent
                         else if (LocalInput.ToUpper() == "ASK TO SEE YELLEGORS BODY")
                         {
                             Poster.Post("The priest says that it is uncommon to allow other people than family members to see the body, so im going to have to ask you to say your farewells during the funeral.");
+                        }
+                        else if (LocalInput.ToUpper() == "" && GlobalBools.SurvivedTheMayor)
+                        {
+                            Poster.Post();
                         }
                         else
                         {
