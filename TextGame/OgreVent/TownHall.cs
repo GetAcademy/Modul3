@@ -45,7 +45,10 @@ namespace OgreVent
                             if (item.MyName == "ring of invicibility")
                             {
                                 Poster.Post($"You put on your {item.MyName} and sneak past the guards and enter the town hall");
-                                Poster.Post("Once on the inside you see people doing paperwork at their desks, while others walk around with piles of paper in their hands and the occasional people talking in the hallways mostly about taxation and other political topics. straight ahead is a set of fine mahogony double doors that has been polished to really bring out its deep red color, the door handles are made out what looks like silver or some similar material and at the center of the handle it is crested with a green gemstone.", 0, false);
+                                Poster.Post("Once on the inside you see people doing paperwork at their desks," +
+                                    " while others walk around with piles of paper in their hands and the occasional people talking in the hallways mostly about taxation and other political topics." +
+                                    " straight ahead is a set of fine mahogony double doors that has been polished to really bring out its deep red color," +
+                                    " the door handles are made out what looks like silver or some similar material and at the center of the handle it is crested with a green gemstone.", 0, false);
                                 Poster.Post("Do you 'Open the Door'? or do you 'Leave'?", 0, false);
                                 string TempString = Input();
                                 switch (TempString)
@@ -53,7 +56,9 @@ namespace OgreVent
                                     case "OPEN THE DOOR":
                                         if (!GlobalBools.SurvivedTheMayor)
                                         {
-                                            Poster.Post("just before you open the doors you can hear voices from the other side of the intimidatingly valuable doors when you open them you are faced with an empty room, or less of a room and just a deep swallowing pit, dirty dark and empty an old wooden staircase made out of timber lodged into the sides of the pit creating a circling pathway down into the deep darkness");
+                                            Poster.Post("just before you open the doors you can hear voices from the other side of the intimidatingly valuable doors when you open them you are faced with an empty room," +
+                                                " or less of a room and just a deep swallowing pit," +
+                                                " dirty dark and empty an old wooden staircase made out of timber lodged into the sides of the pit creating a circling pathway down into the deep darkness");
                                             Program.Location = "Demon Pit";
                                         }
                                         else
