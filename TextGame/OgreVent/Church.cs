@@ -26,7 +26,8 @@ namespace OgreVent
                         Poster.Post("In front of you there are the doors that lead into the Nave you can see all the way up to the Ambulatory.\n You see a priest by the crossing lighting candles.");
                         break;
                     case "LOOK LEFT":
-                        Poster.Post("To your left there is a sleeping guard sitting in a chair, next to the guards chair there is a bill hook and on his belt there is a key");
+                        Poster.Post("To your left there is a sleeping guard sitting in a chair," +
+                            " next to the guards chair there is a bill hook and on his belt there is a key");
                         break;
                     case "LOOK RIGHT":
                         Poster.Post("To your right there is a closed door, a lantern hangs on a hook next to the door.");
@@ -39,28 +40,40 @@ namespace OgreVent
                         Poster.Post("Ask about funeral", 0, false);
                         Poster.Post("Ask about Yellegors Belongings", 0, false);
                         Poster.Post("Ask to see Yellegors body", 0, false);
-                        if (GlobalBools.SurvivedTheMayor) Poster.Post();
+                        if (GlobalBools.SurvivedTheMayor) Poster.Post("Expose the mayor", 0, false);
                         string LocalInput = Input();
                         Poster.Post();
                         if (LocalInput.ToUpper() == "ASK ABOUT FUNERAL")
                         {
-                            Poster.Post("The priest says that Sir Yellowflags funeral will be held tomorrow on the evening, he says it is such a tragedy what happened to sir Yellowflag");
+                            Poster.Post("The priest says that Sir Yellowflags funeral will be held tomorrow on the evening," +
+                                " he says it is such a tragedy what happened to sir Yellowflag");
                         }
                         else if (LocalInput.ToUpper() == "ASK ABOUT YELLEGORS BELONGINGS")
                         {
-                            Poster.Post("The priest says that most of Yellegors belongings will be passed onto his wife, but his armor, shield and sword will be buried with the knight.");
+                            Poster.Post("The priest says that most of Yellegors belongings will be passed onto his wife, but his armor," +
+                                " shield and sword will be buried with the knight.");
                         }
                         else if (LocalInput.ToUpper() == "ASK TO SEE YELLEGORS BODY")
                         {
-                            Poster.Post("The priest says that it is uncommon to allow other people than family members to see the body, so im going to have to ask you to say your farewells during the funeral.");
+                            Poster.Post("The priest says that it is uncommon to allow other people than family members to see the body," +
+                                " so im going to have to ask you to say your farewells during the funeral.");
                         }
-                        else if (LocalInput.ToUpper() == "" && GlobalBools.SurvivedTheMayor)
+                        else if (LocalInput.ToUpper() == "EXPOSE THE MAYOR" && GlobalBools.SurvivedTheMayor)
                         {
-                            Poster.Post();
+                            Poster.Post("You walk up to the priest and as he turns to you and asks 'what troubles you?' you begin to stammer," +
+                                " all cohesion of thoughts," +
+                                " all sentences halfway constructed inside the limited mind of yours crashes into each other," +
+                                " you dont really know where to begin," +
+                                " how do you even begin to communicate that such a mundane upper class individual is in fact some ancient terrifying being," +
+                                " you take a few seconds to collect yourself and you begin to exert yourself in order to be as thorough and convincing in your attempt to expose the mayor," +
+                                " however the priest looks at you as if you were some crazy person," +
+                                " the priest responds by saying 'may the lord have mercy on your delusional soul'," +
+                                " now leave me be, insanity is contagious and we need none of that here.", 1);
                         }
                         else
                         {
-                            Poster.Post("The priest knows nothing of this topic or has nothing to add to this topic, either way the conversation grinds to a halt.");
+                            Poster.Post("The priest knows nothing of this topic or has nothing to add to this topic," +
+                                " either way the conversation grinds to a halt.");
                         }
                         break;
                     case "PRAY":
@@ -74,7 +87,8 @@ namespace OgreVent
                         }
                         break;
                     case "WAKE GUARD":
-                        Poster.Post("The Guard thanks you for waking him but as time passes and the church breaks to remain calm and silent he falls asleep again, who could blame him the atmosphere is rather calming.", 1);
+                        Poster.Post("The Guard thanks you for waking him but as time passes and the church breaks to remain calm and silent he falls asleep again," +
+                            " who could blame him the atmosphere is rather calming.", 1);
                         break;
                     case "TAKE KEY":
                         if(Program.CheckInventory("church key"))
@@ -83,7 +97,8 @@ namespace OgreVent
                         }
                         else if (GlobalBools.TookChurchKey)
                         {
-                            Poster.Post("At some point you took this key and then you got rid of it, the guard has not aquired another key, in fact it seems he has been busy sleeping");
+                            Poster.Post("At some point you took this key and then you got rid of it," +
+                                " the guard has not aquired another key, in fact it seems he has been busy sleeping");
                         }
                         else
                         {
@@ -107,7 +122,9 @@ namespace OgreVent
                                 }
                                 else
                                 {
-                                    Poster.Post("However you seem to be unable to find a place to put it, all your pockets are filled to the brim!, you decide to gently put the key back where you found it");
+                                    Poster.Post("However you seem to be unable to find a place to put it," +
+                                        " all your pockets are filled to the brim!," +
+                                        " you decide to gently put the key back where you found it");
                                 }
                             }
                             else if (random.Next(1, 11) != 1)
@@ -120,12 +137,17 @@ namespace OgreVent
                                 }
                                 else
                                 {
-                                    Poster.Post("However you seem to be unable to find a place to put it, all your pockets are filled to the brim!, you decide to gently put the key back where you found it");
+                                    Poster.Post("However you seem to be unable to find a place to put it," +
+                                        " all your pockets are filled to the brim!," +
+                                        " you decide to gently put the key back where you found it");
                                 }
                             }
                             else
                             {
-                                Poster.Post("As you stealthfully grasp the guards key he wakes up and suckerpunches you into the ground, more guards come and pummel you, as you lay on the ground not knowing wether you are concious or not they tell you to leave your wicked ways.\n They tell you to pray at the altar for forgiveness");
+                                Poster.Post("As you stealthfully grasp the guards key he wakes up and suckerpunches you into the ground," +
+                                    " more guards come and pummel you," +
+                                    " as you lay on the ground not knowing wether you are concious or not they tell you to leave your wicked ways." +
+                                    "\n They tell you to pray at the altar for forgiveness");
                                 Program.Health--;
                             }
                         }
@@ -137,11 +159,14 @@ namespace OgreVent
                         }
                         else if (GlobalBools.TookChurchLantern)
                         {
-                            Poster.Post("You already took this at some point, and then you got rid of it remember? maybe you should have held onto it when you had it?");
+                            Poster.Post("You already took this at some point," +
+                                " and then you got rid of it remember?" +
+                                " maybe you should have held onto it when you had it?");
                         }
                         else
                         {
-                            if (GameItem.AddItemToInventory("church lantern")) Poster.Post("You take the unlit lantern off the wall, lighting it is no problem there are small twigs meant for lighting candles left inside the lantern next to the candle and lit candles around the church.");
+                            if (GameItem.AddItemToInventory("church lantern")) Poster.Post("You take the unlit lantern off the wall," +
+                                " lighting it is no problem there are small twigs meant for lighting candles left inside the lantern next to the candle and lit candles around the church.");
                             else Poster.Post("You would take the lantern if you only had somewhere to put the damn thing");
                         }
                         break;
@@ -151,8 +176,13 @@ namespace OgreVent
                             Poster.Post("You unlock the door and go down the dark staircase");
                             if(Program.CheckInventory("church lantern"))
                             {
-                                Poster.Post("You light the lantern on your way down and when you reach the bottom you can see a casket in a room ahead of you laying on a table as you inspect it you find out it is Sir Yellegor Yellowflags casket");
+                                Poster.Post("You light the lantern on your way down and when you reach the bottom you can see a casket," +
+                                    " in a room ahead of you laying on a table as you inspect it you find out it is Sir Yellegor Yellowflags casket");
+                                if(GlobalBools.SurvivedTheMayor && !GlobalBools.TookTheMayorsRing) Poster.Post("You also notice a small jewelry box that is resting between some stowed away chairs tucked away in some corners," +
+                                    " the dustcovered silver finishing on the box still glintses slightly from the reflection" +
+                                    " of some light that has crept its way through a small window located at the top of the adjacent wall", 0, false);
                                 Poster.Post("Do you 'Open the Casket' or 'Say Goodbye'");
+                                if (GlobalBools.SurvivedTheMayor && !GlobalBools.TookTheMayorsRing) Poster.Post("Or! Do you 'Inspect the jewelry box'");
                                 string TempAction = Input();
                                 if (TempAction.ToUpper() == "OPEN THE CASKET")
                                 {
@@ -202,6 +232,51 @@ namespace OgreVent
                                 else if (TempAction.ToUpper() == "SAY GOODBYE")
                                 {
                                     Poster.Post("After you say your last goodbyes and have a good cry... alone... in the dark undercroft of the church, like the absolute loser that you are, you pull yourself together and return to the first floor of the church");
+                                }
+                                else if (TempAction.ToUpper() == "INSPECT THE JEWELRY BOX" && !GlobalBools.TookTheMayorsRing && GlobalBools.SurvivedTheMayor)
+                                {
+                                    Poster.Post("you walk over to the chairs in the corner," +
+                                        " spending a while moving some of the old dusty furniture out of the way so you can get go the box," +
+                                        " you wipe your hands over it removing large quantities of dust revealing even more of the beauty of the box," +
+                                        " it also reveals what looks like holy runes that is carved into the wooden parts of the box," +
+                                        " the runes seem like a central part of the box." +
+                                        " The box is however locked with a small padlock that seems like more of a formality than a safety measure," +
+                                        " however you still require some way to open the padlock");
+                                    if (Program.CheckInventory("dagger"))
+                                    {
+                                        Poster.Post("You decide to stick the blade of your dagger in between the lid and crack the box open," +
+                                            " within is a ring," +
+                                            " you pick it up in order to inspect it further",1);
+                                    }
+                                    else if(Program.CheckInventory("carpenter tools"))
+                                    {
+                                        Poster.Post("Using your carpenter tools you bust the box open," +
+                                            " within is a ring," +
+                                            " you pick it up in order to inspect it further",1);
+                                    }
+                                    else
+                                    {
+                                        Poster.Post("After having fought with the box for a while and tried to use your mighty peasant strength to overcome the padlock," +
+                                            " you eventually become out of breath and in a frustrated tantrum you smash the box into the stone floor," +
+                                            " effectively breaking the box into many pieces and the glimmering contents is rolling away from you across the floor," +
+                                            " you follow the ring and pick it up in order to inspect it further",2);
+                                    }
+                                    Poster.Post("The ring you are holding is cold and heavy," +
+                                        " the primary material used in the ring is uknown to you but it has a deep natural blue color to it," +
+                                        " gold is imbedded in a twisted pattern all around the ring," +
+                                        " and the ring has no crown of any sort," +
+                                        " making it strangely humble at the same time it comes off as incredibly prestigious," +
+                                        " luxurious and expensive.");
+                                    if (!GlobalBools.TookTheMayorsRing && GameItem.AddItemToInventory("mayors ring"))
+                                    {
+                                        Poster.Post("You stuff the ring into your pocket");
+                                        GlobalBools.TookTheMayorsRing = true;
+                                    }
+                                    else Poster.Post("You would have taken the ring if you had but the space in your pocket," +
+                                        " you do your best to put the ring back where you found it," +
+                                        " you are very successfull in doing this," +
+                                        " its almost like you havent been here to begin with.");
+                                    Poster.Post("You walk back up the stairs you came down");
                                 }
                                 else
                                 {
