@@ -55,6 +55,7 @@
     <Compile Include="InsidePitLevel5.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MarkedPlace.cs" />
+    <Compile Include="MayorsOffice.cs" />
     <Compile Include="Poster.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
