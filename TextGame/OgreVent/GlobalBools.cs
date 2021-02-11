@@ -9,5 +9,6 @@
         public static bool CoffinInspected = false;
         public static bool SurvivedTheMayor = false;
         public static bool TookTheMayorsRing = false;
+        public static bool DoneWithTheDevil = false;
     }
 }

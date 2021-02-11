@@ -54,7 +54,11 @@ namespace OgreVent
                                 switch (TempString)
                                 {
                                     case "OPEN THE DOOR":
-                                        if (!GlobalBools.SurvivedTheMayor)
+                                        if (GlobalBools.DoneWithTheDevil)
+                                        {
+                                            Poster.Post("Your attempts at entering is futile, fear is nurtured within you");
+                                        }
+                                        else if (!GlobalBools.SurvivedTheMayor)
                                         {
                                             Poster.Post("just before you open the doors you can hear voices from the other side of the intimidatingly valuable doors when you open them you are faced with an empty room," +
                                                 " or less of a room and just a deep swallowing pit," +

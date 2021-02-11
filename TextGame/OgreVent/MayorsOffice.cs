@@ -81,14 +81,15 @@ namespace OgreVent
             Poster.Post("The man leans forward and rests his elbows on his desk, before he says 'so, do you have it? do you have my ring?'");
             if(GlobalBools.TookTheMayorsRing && Program.CheckInventory("mayors ring"))
             {
-                Poster.Post("you can feel that he is drawn towards the ring and the ring is equally drawn to him," +
-                    " like a magnetic force," +
+                Poster.Post("The magic in the ring creates a presence that fills the room," +
+                    " making it a sort of magical elephant in the room" +
                     " you think the very question he poses is but a formality," +
                     " the presence of the ring is a secret to noone." +
                     " There is no question about it," +
                     " you will be handing the ring over to him," +
                     " the consequenses of doing otherwise would be unimaginably terrifying and is therefore a non option," +
                     " however the fear of not knowing what he intends to do with either you or the ring once he has it creeps into your mind as the moment grows closer.");
+                GlobalBools.DoneWithTheDevil = true;
             }
         }
     }

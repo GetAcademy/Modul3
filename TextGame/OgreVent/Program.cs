@@ -331,6 +331,41 @@ namespace OgreVent
                     ScholarsMarket.Actions(MyAction.ToUpper());
                     continue;
                 }
+                else if (Location == "Demon Pit")
+                {
+                    DemonPit.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Inside Pit")
+                {
+                    InsidePit.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Inside Pit Level 2")
+                {
+                    InsidePitLevel2.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Inside Pit Level 3")
+                {
+                    InsidePitLevel3.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Inside Pit Level 4")
+                {
+                    InsidePitLevel4.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Inside Pit Level 5")
+                {
+                    InsidePitLevel5.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Mayors Office")
+                {
+                    MayorsOffice.Actions(MyAction.ToUpper());
+                    continue;
+                }
             }
             Poster.Post("You are Dead, you will not be remembered, you will not pass into legend. You shall fade into the nothingness of wich you came.");
             Poster.Post();
