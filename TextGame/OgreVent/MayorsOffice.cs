@@ -89,6 +89,7 @@ namespace OgreVent
                     " you will be handing the ring over to him," +
                     " the consequenses of doing otherwise would be unimaginably terrifying and is therefore a non option," +
                     " however the fear of not knowing what he intends to do with either you or the ring once he has it creeps into your mind as the moment grows closer.");
+                Poster.Post("saying nothing you quickly step forward towards the edge of his desk, dropping the ring on top of some lightly stained notes next to an inkwell before you quickly take a step back again. fear fills you as he looks at the still spinning piece of metal with great excitement");
                 GlobalBools.DoneWithTheDevil = true;
             }
         }
