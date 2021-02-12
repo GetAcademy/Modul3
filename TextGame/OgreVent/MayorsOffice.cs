@@ -89,7 +89,24 @@ namespace OgreVent
                     " you will be handing the ring over to him," +
                     " the consequenses of doing otherwise would be unimaginably terrifying and is therefore a non option," +
                     " however the fear of not knowing what he intends to do with either you or the ring once he has it creeps into your mind as the moment grows closer.");
-                Poster.Post("saying nothing you quickly step forward towards the edge of his desk, dropping the ring on top of some lightly stained notes next to an inkwell before you quickly take a step back again. fear fills you as he looks at the still spinning piece of metal with great excitement");
+                Poster.Post("saying nothing you quickly step forward towards the edge of his desk," +
+                    " dropping the ring on top of some lightly stained notes next to an inkwell before you quickly take a step back again." +
+                    " fear fills you as he looks at the still spinning piece of metal with great excitement");
+                Poster.Post("As he latches his hands around the ring,'" +
+                    " you are in a sudden moment brought to another place," +
+                    " one of fire," +
+                    " one of brimstone," +
+                    " the smell of sulphur is so real," +
+                    " the crapmp nature of the place seems so commonplace," +
+                    " it is like you have already spent an eterntiy here," +
+                    " the amount of people gathered around your near viscinity is enough to restrict all movement of your upper body," +
+                    " however with your neck and head you are able to observe 2 large gates made of the thickest iron you have ever seen jagged and spiked," +
+                    " parts of it on fire arts of the spikes covered in what you think to be human heads," +
+                    " the crowd you are ever stuck in is slowly but surely moving towards the gates," +
+                    " the inevitability of passing trough to the other sides of this magmatic inferno." +
+                    " A pain and misery you have never felt before in your life seems to be ever more present as you move closer to these gates," +
+                    " a sense of futility overtakes you as you realise these gates are the very end of everything regardless of the sight smell" +
+                    " and otherwise experience of the place on the other side. a physically unrecognizable shape yet recognizable in other ways, is the mayor on top of his throne way past the gates with a string instrument strapped around his upper body ");
                 GlobalBools.DoneWithTheDevil = true;
             }
         }
