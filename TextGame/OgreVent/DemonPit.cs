@@ -20,6 +20,7 @@ namespace OgreVent
 
             if (Program.Location == "Demon Pit")
             {
+                Poster.Post("For some reason your ring doesnt work here, you become visible");
                 switch (MyAction.ToUpper())
                 {
                     case "LOOK FORWARD":

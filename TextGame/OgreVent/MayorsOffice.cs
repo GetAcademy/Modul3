@@ -20,6 +20,7 @@ namespace OgreVent
 
             if (Program.Location == "Mayors Office")
             {
+                Poster.Post("As you enter the office you become visible, your ring has no effect in here");
                 switch (MyAction.ToUpper())
                 {
                     case "LOOK LEFT":
@@ -97,16 +98,20 @@ namespace OgreVent
                     " one of fire," +
                     " one of brimstone," +
                     " the smell of sulphur is so real," +
-                    " the crapmp nature of the place seems so commonplace," +
-                    " it is like you have already spent an eterntiy here," +
-                    " the amount of people gathered around your near viscinity is enough to restrict all movement of your upper body," +
-                    " however with your neck and head you are able to observe 2 large gates made of the thickest iron you have ever seen jagged and spiked," +
-                    " parts of it on fire arts of the spikes covered in what you think to be human heads," +
-                    " the crowd you are ever stuck in is slowly but surely moving towards the gates," +
-                    " the inevitability of passing trough to the other sides of this magmatic inferno." +
-                    " A pain and misery you have never felt before in your life seems to be ever more present as you move closer to these gates," +
-                    " a sense of futility overtakes you as you realise these gates are the very end of everything regardless of the sight smell" +
-                    " and otherwise experience of the place on the other side. a physically unrecognizable shape yet recognizable in other ways, is the mayor on top of his throne way past the gates with a string instrument strapped around his upper body ");
+                    " then you are back in the moment," +
+                    " you realise the man is already wearing the ring and the magical presence of the ring is gone as far as you can tell," +
+                    " he is reaching out to you with a hand," +
+                    " clutching a rather full pouch." +
+                    " Compensation for your services," +
+                    " now take it and begone from my sight," +
+                    " you are an eyesore amidst my perfect office," +
+                    " and dont return, or i shall strain myself to have you suffer for that mistake.");
+                Poster.Post("You walk out of the office shutting the door behind you," +
+                    " you become invisible again," +
+                    " as you continue to the outside you look inside the pouch," +
+                    " and within you find...", 1);
+                Program.PrintValue(5972);
+                Program.Money += 5972;
                 GlobalBools.DoneWithTheDevil = true;
             }
         }
