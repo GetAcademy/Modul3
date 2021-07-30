@@ -45,6 +45,14 @@ namespace OgreVent
                 new Item("knights gear",0,20,0,15,7),
                 new Item("backpack",50,2,1),
                 new Item("mayors ring",0,0),
+                new Item("wand of fireball", 300000, 0, 1),
+                new Item("bottle of red wine", 300, 1, 1),
+                new Item("bottle of white wine", 300, 1, 1),
+                new Item("bottle of whiskey", 700, 1, 1),
+                new Item("bottle of rum", 1000, 1, 1),
+                new Item("bottle of fruit liqueur", 500, 1, 1),
+                new Item("alchemical components", 200, 1, 1),
+                new Item("alchemists tools", 1800, 5, 5)
             };
         public static bool RemoveItemFromInventory(string Name)
         {

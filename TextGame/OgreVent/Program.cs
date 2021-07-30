@@ -331,6 +331,26 @@ namespace OgreVent
                     ScholarsMarket.Actions(MyAction.ToUpper());
                     continue;
                 }
+                else if (Location == "Magic Shop")
+                {
+                    MagicShop.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Imported Spirits Shop")
+                {
+                    ImportedSpiritsShop.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Alchemist Shop")
+                {
+                    AlchemistShop.Actions(MyAction.ToUpper());
+                    continue;
+                }
+                else if (Location == "Tobacconist Shop")
+                {
+                    TobacconistShop.Actions(MyAction.ToUpper());
+                    continue;
+                }
                 else if (Location == "Demon Pit")
                 {
                     DemonPit.Actions(MyAction.ToUpper());

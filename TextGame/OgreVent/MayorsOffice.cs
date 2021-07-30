@@ -113,6 +113,7 @@ namespace OgreVent
                 Program.PrintValue(5972);
                 Program.Money += 5972;
                 GlobalBools.DoneWithTheDevil = true;
+                Program.Location = "Town Hall";
             }
         }
     }
